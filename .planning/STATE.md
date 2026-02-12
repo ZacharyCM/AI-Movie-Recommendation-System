@@ -10,26 +10,28 @@ See: .planning/PROJECT.md (updated 2026-02-08)
 ## Current Position
 
 Phase: 1 of 6 (Foundation & Data Infrastructure)
-Plan: 2 of 5 in current phase
+Plan: 4 of 5 in current phase
 Status: Executing
-Last activity: 2026-02-12 -- Completed plan 01-02: Backend scaffolding with FastAPI and TMDB client
+Last activity: 2026-02-12 -- Completed plans 01-03 (Auth flows) and 01-04 (TMDB API endpoints)
 
-Progress: [████░░░░░░] 40%
+Progress: [████████░░] 80%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 3m 1s
-- Total execution time: 0.1 hours
+- Total plans completed: 4
+- Average duration: 3m 15s
+- Total execution time: 0.2 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation-data-infrastructure | 2 | 6m 2s | 3m 1s |
+| 01-foundation-data-infrastructure | 4 | 13m | 3m 15s |
 
 **Recent Executions:**
+- 01-04 (TMDB API Endpoints): 3m, 2 tasks, 4 files
+- 01-03 (Auth Flows): 4m, 2 tasks, 11 files
 - 01-02 (Backend Scaffolding): 3m 11s, 2 tasks, 7 files
 - 01-01 (Frontend Foundation): 2m 51s, 2 tasks, 21 files
 
@@ -51,6 +53,11 @@ Recent decisions affecting current work:
 - [01-02]: Use pydantic-settings for configuration management (type-safe, automatic .env loading)
 - [01-02]: TMDB client uses httpx AsyncClient for each request (context manager ensures cleanup)
 - [01-02]: Image URL helper returns placeholder for null paths (prevents broken images in UI)
+- [01-03]: Used Next.js route groups (auth) for auth page layout isolation
+- [01-03]: Cookie-based session detection in middleware for route protection
+- [01-03]: Single AuthForm component with mode prop for all auth pages
+- [01-04]: Kept TMDB nested structure (credits.cast, videos.results) aligned with frontend types
+- [01-04]: Search endpoint registered before {movie_id} to prevent FastAPI routing ambiguity
 
 ### Pending Todos
 
@@ -64,5 +71,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-12
-Stopped at: Completed 01-02-PLAN.md (Backend Scaffolding). Ready for plan 01-03.
+Stopped at: Completed Wave 2 (01-03, 01-04). Ready for Wave 3 (01-05 catalog UI).
 Resume file: None
