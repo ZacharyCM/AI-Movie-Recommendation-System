@@ -29,13 +29,14 @@ NetflixRecs delivers a premium movie discovery platform powered by hybrid AI rec
   3. User can browse a paginated grid of movies with poster thumbnails from TMDB
   4. User can search for a specific movie by title and find it in results
   5. User can open a movie detail page showing synopsis, cast, trailer, and backdrop image
-**Plans**: TBD
+**Plans**: 4 plans
 **Research flag**: Standard patterns, skip research-phase
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
-- [ ] 01-03: TBD
+- [ ] 01-01-PLAN.md — Project scaffolding (Next.js + FastAPI) and Supabase/TMDB configuration
+- [ ] 01-02-PLAN.md — Authentication flows (signup, login, logout, password reset, session persistence)
+- [ ] 01-03-PLAN.md — TMDB API backend endpoints (popular, search, detail)
+- [ ] 01-04-PLAN.md — Catalog browsing UI (movie grid, search, pagination) and movie detail page
 
 ### Phase 2: User Engagement & Cold Start
 **Goal**: Users can rate movies, build taste profiles, and have enough data to power personalized recommendations from their first session
@@ -180,7 +181,7 @@ All phases are sequential. Each phase builds on the outputs of the previous phas
 
 | Phase | Plans Complete | Status | Completed |
 |-------|---------------|--------|-----------|
-| 1. Foundation & Data Infrastructure | 0/TBD | Not started | - |
+| 1. Foundation & Data Infrastructure | 0/4 | Planned | - |
 | 2. User Engagement & Cold Start | 0/TBD | Not started | - |
 | 3. Content-Based Recommendations | 0/TBD | Not started | - |
 | 4. Collaborative Filtering & Hybrid Fusion | 0/TBD | Not started | - |
