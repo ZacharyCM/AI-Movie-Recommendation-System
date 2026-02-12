@@ -18,6 +18,11 @@ app.add_middleware(
 )
 
 
+from routers.movies import router as movies_router
+
+app.include_router(movies_router)
+
+
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""
