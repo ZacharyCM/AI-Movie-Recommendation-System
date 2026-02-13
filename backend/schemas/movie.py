@@ -50,6 +50,7 @@ class MovieDetailResponse(MovieResponse):
     tagline: str | None
     credits: CreditsResponse
     videos: VideosResponse
+    genre_ids: list[int] = []  # Detail endpoint returns genres instead of genre_ids
 
 
 class PaginatedMovieResponse(BaseModel):
