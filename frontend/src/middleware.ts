@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
 
-const publicPaths = ["/login", "/signup", "/reset-password", "/auth/callback"];
+const publicPaths = ["/login", "/signup", "/reset-password", "/auth/callback", "/taste-quiz"];
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -23,6 +23,16 @@ export async function middleware(request: NextRequest) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
     return NextResponse.redirect(loginUrl);
+  }
+
+  // Redirect authenticated users to taste quiz if they haven't completed it
+  // Check for taste-quiz-complete cookie
+  const hasTasteQuizComplete = request.cookies.get("taste-quiz-complete")?.value === "true";
+
+  if (hasSession && !hasTasteQuizComplete && pathname !== "/taste-quiz" && pathname !== "/") {
+    const tasteQuizUrl = request.nextUrl.clone();
+    tasteQuizUrl.pathname = "/taste-quiz";
+    return NextResponse.redirect(tasteQuizUrl);
   }
 
   return response;

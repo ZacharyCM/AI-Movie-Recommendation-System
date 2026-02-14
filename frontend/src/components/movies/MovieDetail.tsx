@@ -4,9 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import type { MovieDetail as MovieDetailType } from "@/types/movie";
 import { getImageUrl } from "@/types/movie";
+import { StarRating } from "@/components/engagement/StarRating";
+import { WatchlistButton } from "@/components/engagement/WatchlistButton";
+import { useMovieRating, useRateMovie } from "@/hooks/useRatings";
 
 interface MovieDetailProps {
   movie: MovieDetailType;
+  movieId?: number;
 }
 
 function formatRuntime(minutes: number | null): string {
@@ -16,12 +20,19 @@ function formatRuntime(minutes: number | null): string {
   return `${h}h ${m}m`;
 }
 
-export default function MovieDetail({ movie }: MovieDetailProps) {
+export default function MovieDetail({ movie, movieId }: MovieDetailProps) {
   const year = movie.release_date ? movie.release_date.split("-")[0] : "";
   const trailer = movie.videos?.results?.find(
     (v) => v.site === "YouTube" && v.type === "Trailer"
   );
   const cast = movie.credits?.cast?.slice(0, 10) ?? [];
+
+  const { data: userRating } = useMovieRating(movieId || movie.id);
+  const rateMutation = useRateMovie();
+
+  const handleRatingChange = (rating: number) => {
+    rateMutation.mutate({ movieId: movieId || movie.id, rating });
+  };
 
   return (
     <div>
@@ -66,6 +77,21 @@ export default function MovieDetail({ movie }: MovieDetailProps) {
               </svg>
               {movie.vote_average.toFixed(1)}
             </span>
+          </div>
+
+          {/* Engagement controls */}
+          <div className="flex items-center gap-4 mt-4">
+            <div className="flex items-center gap-2">
+              <StarRating
+                value={userRating || 0}
+                onChange={handleRatingChange}
+                size="md"
+              />
+              <span className="text-sm text-slate-300">
+                {userRating ? `Your rating: ${userRating}/5` : "Rate this movie"}
+              </span>
+            </div>
+            <WatchlistButton movieId={movieId || movie.id} size="md" />
           </div>
         </div>
       </div>

@@ -1,11 +1,12 @@
 "use client";
 
-import { use } from "react";
+import { use, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMovieDetail } from "@/lib/api";
 import MovieDetail from "@/components/movies/MovieDetail";
 import Navbar from "@/components/layout/Navbar";
 import Link from "next/link";
+import { trackAction } from "@/lib/supabase/history";
 
 export default function MoviePage({
   params,
@@ -18,6 +19,16 @@ export default function MoviePage({
     queryKey: ["movie", id],
     queryFn: () => fetchMovieDetail(Number(id)),
   });
+
+  // Track detail page view
+  useEffect(() => {
+    try {
+      trackAction(Number(id), 'detail_viewed');
+    } catch (err) {
+      // Fire-and-forget, don't block rendering
+      console.error('Failed to track detail view:', err);
+    }
+  }, [id]);
 
   return (
     <>
@@ -44,7 +55,7 @@ export default function MoviePage({
           </div>
         )}
 
-        {data && <MovieDetail movie={data} />}
+        {data && <MovieDetail movie={data} movieId={Number(id)} />}
       </main>
     </>
   );
