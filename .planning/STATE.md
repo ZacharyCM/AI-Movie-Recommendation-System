@@ -10,17 +10,17 @@ See: .planning/PROJECT.md (updated 2026-02-08)
 ## Current Position
 
 Phase: 2 of 6 (User Engagement & Cold Start)
-Plan: 1 of 4 in current phase
+Plan: 2 of 4 in current phase
 Status: In progress
-Last activity: 2026-02-14 -- Completed 02-01 (User Engagement Foundation)
+Last activity: 2026-02-14 -- Completed 02-02 (UI Integration)
 
-Progress: [██░░░░░░░░] 25% (Phase 2)
+Progress: [████░░░░░░] 50% (Phase 2)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 4m
+- Total plans completed: 7
+- Average duration: 3m 20s
 - Total execution time: 0.4 hours
 
 **By Phase:**
@@ -28,14 +28,14 @@ Progress: [██░░░░░░░░] 25% (Phase 2)
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation-data-infrastructure | 5 | 20m | 4m |
-| 02-user-engagement-cold-start | 1 | 3m | 3m |
+| 02-user-engagement-cold-start | 2 | 5m 9s | 2m 35s |
 
 **Recent Executions:**
+- 02-02 (UI Integration): 2m 9s, 2 tasks, 3 files
 - 02-01 (User Engagement Foundation): 3m, 2 tasks, 11 files
 - 01-05 (Catalog UI): 8m, 3 tasks, 11 files
 - 01-04 (TMDB API Endpoints): 3m, 2 tasks, 4 files
 - 01-03 (Auth Flows): 4m, 2 tasks, 11 files
-- 01-02 (Backend Scaffolding): 3m 11s, 2 tasks, 7 files
 
 *Updated after each plan completion*
 
@@ -70,6 +70,10 @@ Recent decisions affecting current work:
 - [02-01]: Custom StarRating component built instead of unmaintained npm packages
 - [02-01]: Profile stats computed client-side for simplicity with Supabase JS client
 - [02-01]: Trigger uses security definer set search_path = '' to prevent exploits
+- [Phase 02-02]: Hover overlays on MovieCard reveal engagement controls without cluttering grid view
+- [Phase 02-02]: Event propagation prevention (preventDefault + stopPropagation) on engagement overlay to avoid Link navigation
+- [Phase 02-02]: Personal ratings replace TMDB ratings in card footer for personalized browse experience
+- [Phase 02-02]: Fire-and-forget detail_viewed tracking doesn't block rendering on failures
 
 ### Pending Todos
 
@@ -83,5 +87,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-14
-Stopped at: Completed 02-01-PLAN.md (User Engagement Foundation). Ready for 02-02 (Taste Quiz).
+Stopped at: Completed 02-02-PLAN.md (UI Integration). Ready for 02-03 (Taste Quiz).
 Resume file: None
