@@ -49,12 +49,14 @@ Plans:
   3. User can view their profile page showing rating history, viewing stats, and watchlist
   4. New user is prompted to rate 5-10 well-known movies at signup (taste quiz) before seeing the main experience
   5. User's viewing history accurately reflects all movies they have rated or interacted with
-**Plans**: TBD
+**Plans**: 4 plans
 **Research flag**: Standard patterns, skip research-phase
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
+- [ ] 02-01-PLAN.md — Database schema (profiles, ratings, watchlist, viewing_history), RLS policies, triggers, indexes + StarRating/WatchlistButton components + TanStack Query hooks with optimistic updates
+- [ ] 02-02-PLAN.md — Integrate StarRating and WatchlistButton into MovieCard (hover overlay) and MovieDetail (backdrop section) + viewing history tracking
+- [ ] 02-03-PLAN.md — User profile page with ProfileHeader, RatingHistory, WatchlistGrid + Navbar profile link
+- [ ] 02-04-PLAN.md — Taste quiz onboarding (10 curated movies, minimum 5 ratings) + middleware redirect for new users
 
 ### Phase 3: Content-Based Recommendations
 **Goal**: Users receive personalized movie recommendations based on the content characteristics of movies they have rated highly
