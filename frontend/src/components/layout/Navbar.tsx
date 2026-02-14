@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { User } from "lucide-react";
 import LogoutButton from "@/components/auth/LogoutButton";
 
 export default function Navbar() {
@@ -9,7 +10,16 @@ export default function Navbar() {
       <Link href="/browse" className="text-xl font-bold text-red-600">
         NetflixRecs
       </Link>
-      <LogoutButton />
+      <div className="flex items-center gap-4">
+        <Link
+          href="/profile"
+          className="text-slate-400 hover:text-white transition flex items-center gap-1 text-sm"
+        >
+          <User size={16} />
+          <span>Profile</span>
+        </Link>
+        <LogoutButton />
+      </div>
     </nav>
   );
 }
