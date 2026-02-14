@@ -9,32 +9,33 @@ See: .planning/PROJECT.md (updated 2026-02-08)
 
 ## Current Position
 
-Phase: 1 of 6 (Foundation & Data Infrastructure) — COMPLETE
-Plan: 5 of 5 in current phase
-Status: Phase complete, verified
-Last activity: 2026-02-12 -- Phase 1 verified and marked complete
+Phase: 2 of 6 (User Engagement & Cold Start)
+Plan: 1 of 4 in current phase
+Status: In progress
+Last activity: 2026-02-14 -- Completed 02-01 (User Engagement Foundation)
 
-Progress: [██████████] 100% (Phase 1)
+Progress: [██░░░░░░░░] 25% (Phase 2)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
+- Total plans completed: 6
 - Average duration: 4m
-- Total execution time: 0.3 hours
+- Total execution time: 0.4 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation-data-infrastructure | 5 | 20m | 4m |
+| 02-user-engagement-cold-start | 1 | 3m | 3m |
 
 **Recent Executions:**
+- 02-01 (User Engagement Foundation): 3m, 2 tasks, 11 files
 - 01-05 (Catalog UI): 8m, 3 tasks, 11 files
 - 01-04 (TMDB API Endpoints): 3m, 2 tasks, 4 files
 - 01-03 (Auth Flows): 4m, 2 tasks, 11 files
 - 01-02 (Backend Scaffolding): 3m 11s, 2 tasks, 7 files
-- 01-01 (Frontend Foundation): 2m 51s, 2 tasks, 21 files
 
 *Updated after each plan completion*
 
@@ -62,6 +63,13 @@ Recent decisions affecting current work:
 - [01-05]: TanStack Query with placeholderData for smooth pagination
 - [01-05]: Navbar imported directly in detail page (avoided route group restructuring)
 - [01-05]: 300ms debounce on search input
+- [02-01]: RLS policies use (select auth.uid()) subselect pattern for better performance
+- [02-01]: Manual FK indexes created on all foreign keys (Supabase doesn't auto-create)
+- [02-01]: Optimistic updates with cancelQueries + snapshot + rollback pattern
+- [02-01]: Viewing history tracks implicit signals for future recommendation engine
+- [02-01]: Custom StarRating component built instead of unmaintained npm packages
+- [02-01]: Profile stats computed client-side for simplicity with Supabase JS client
+- [02-01]: Trigger uses security definer set search_path = '' to prevent exploits
 
 ### Pending Todos
 
@@ -74,6 +82,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-02-12
-Stopped at: Phase 1 complete and verified. Ready to plan Phase 2 (User Engagement & Cold Start).
+Last session: 2026-02-14
+Stopped at: Completed 02-01-PLAN.md (User Engagement Foundation). Ready for 02-02 (Taste Quiz).
 Resume file: None
