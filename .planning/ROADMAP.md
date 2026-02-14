@@ -10,7 +10,7 @@ NetflixRecs delivers a premium movie discovery platform powered by hybrid AI rec
 - Integer phases (1, 2, 3): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
-- [ ] **Phase 1: Foundation & Data Infrastructure** - Auth, database, TMDB integration, and catalog browsing
+- [x] **Phase 1: Foundation & Data Infrastructure** - Auth, database, TMDB integration, and catalog browsing *(completed 2026-02-12)*
 - [ ] **Phase 2: User Engagement & Cold Start** - Ratings, watchlist, profiles, and taste quiz onboarding
 - [ ] **Phase 3: Content-Based Recommendations** - TF-IDF + cosine similarity personalized recommendations
 - [ ] **Phase 4: Collaborative Filtering & Hybrid Fusion** - SVD/KNN collaborative model with hybrid fusion layer
@@ -33,11 +33,11 @@ NetflixRecs delivers a premium movie discovery platform powered by hybrid AI rec
 **Research flag**: Standard patterns, skip research-phase
 
 Plans:
-- [ ] 01-01-PLAN.md — Next.js frontend scaffold + Supabase client setup
-- [ ] 01-02-PLAN.md — FastAPI backend scaffold + TMDB client + shared types
-- [ ] 01-03-PLAN.md — Authentication flows (signup, login, logout, password reset, session persistence)
-- [ ] 01-04-PLAN.md — TMDB API backend endpoints (popular, search, detail)
-- [ ] 01-05-PLAN.md — Catalog browsing UI (movie grid, search, pagination) and movie detail page
+- [x] 01-01-PLAN.md — Next.js frontend scaffold + Supabase client setup
+- [x] 01-02-PLAN.md — FastAPI backend scaffold + TMDB client + shared types
+- [x] 01-03-PLAN.md — Authentication flows (signup, login, logout, password reset, session persistence)
+- [x] 01-04-PLAN.md — TMDB API backend endpoints (popular, search, detail)
+- [x] 01-05-PLAN.md — Catalog browsing UI (movie grid, search, pagination) and movie detail page
 
 ### Phase 2: User Engagement & Cold Start
 **Goal**: Users can rate movies, build taste profiles, and have enough data to power personalized recommendations from their first session
@@ -182,7 +182,7 @@ All phases are sequential. Each phase builds on the outputs of the previous phas
 
 | Phase | Plans Complete | Status | Completed |
 |-------|---------------|--------|-----------|
-| 1. Foundation & Data Infrastructure | 0/5 | Planned | - |
+| 1. Foundation & Data Infrastructure | 5/5 | ✓ Complete | 2026-02-12 |
 | 2. User Engagement & Cold Start | 0/TBD | Not started | - |
 | 3. Content-Based Recommendations | 0/TBD | Not started | - |
 | 4. Collaborative Filtering & Hybrid Fusion | 0/TBD | Not started | - |
