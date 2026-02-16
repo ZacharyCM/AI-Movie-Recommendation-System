@@ -86,6 +86,7 @@ export function useRateMovie() {
         queryClient.invalidateQueries({ queryKey: ['ratings', variables.movieId] });
         queryClient.invalidateQueries({ queryKey: ['user-ratings'] });
         queryClient.invalidateQueries({ queryKey: ['user-stats'] });
+        queryClient.invalidateQueries({ queryKey: ['recommendations'] });
       }
     }
   });

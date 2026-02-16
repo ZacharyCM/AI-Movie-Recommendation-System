@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchMovies, searchMovies } from "@/lib/api";
 import MovieGrid from "@/components/movies/MovieGrid";
 import SearchBar from "@/components/movies/SearchBar";
+import RecommendationSection from "@/components/recommendations/RecommendationSection";
 
 export default function BrowsePage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,6 +27,8 @@ export default function BrowsePage() {
 
   return (
     <div className="space-y-6">
+      <RecommendationSection />
+
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <h1 className="text-2xl font-bold text-white">Browse Movies</h1>
         <SearchBar onSearch={handleSearch} />
