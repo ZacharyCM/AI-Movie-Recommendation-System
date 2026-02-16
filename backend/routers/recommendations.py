@@ -10,7 +10,7 @@ from supabase import create_client
 from config import settings
 from services.tmdb import TMDBService
 from schemas.recommendation import RecommendationResponse, RecommendationListResponse
-from main import recommender_service
+from dependencies import recommender_service
 
 router = APIRouter(prefix="/api/recommendations", tags=["recommendations"])
 
@@ -128,9 +128,18 @@ async def get_recommendations(
             total_ratings=total_ratings
         )
 
-    # Strategy 2: Content-based recommendations (5+ ratings)
-    # Get recommendations from recommender service
-    recommended_items = recommender_service.get_recommendations(ratings, top_n)
+    # Strategy 2: Hybrid recommendations (5+ ratings)
+    # Get recommendations from hybrid recommender service
+    recommended_items, strategy = recommender_service.hybrid_recommendations(
+        user_id=user_id,
+        ratings=ratings,
+        top_n=top_n
+    )
+
+    # Fallback to content-based if hybrid returns empty
+    if not recommended_items:
+        recommended_items = recommender_service.get_recommendations(ratings, top_n)
+        strategy = "content_based"
 
     # Fetch movie details from TMDB concurrently
     async def fetch_movie_for_recommendation(item: dict) -> RecommendationResponse | None:
@@ -147,7 +156,7 @@ async def get_recommendations(
                 vote_average=movie_data.get("vote_average", 0.0),
                 release_date=movie_data.get("release_date", ""),
                 score=score,
-                reason="content_based"
+                reason=strategy
             )
         except Exception as e:
             print(f"Error fetching movie {item['movie_id']}: {e}")
@@ -163,6 +172,6 @@ async def get_recommendations(
 
     return RecommendationListResponse(
         recommendations=recommendations_list,
-        strategy="content_based",
+        strategy=strategy,
         total_ratings=total_ratings
     )

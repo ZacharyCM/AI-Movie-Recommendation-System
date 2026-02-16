@@ -37,8 +37,13 @@ export default function RecommendationSection() {
 
   const { recommendations, strategy } = data;
 
-  // Empty recommendations for content_based strategy
-  if (strategy === "content_based" && recommendations.length === 0) {
+  // Empty recommendations for content_based or hybrid strategies
+  if (
+    (strategy === "content_based" ||
+      strategy === "hybrid_content_heavy" ||
+      strategy === "hybrid_collaborative_heavy") &&
+    recommendations.length === 0
+  ) {
     return (
       <section className="mb-8">
         <h2 className="text-xl font-semibold text-white mb-4">
@@ -60,6 +65,9 @@ export default function RecommendationSection() {
   const title =
     strategy === "popularity_fallback" ? "Popular Right Now" : "Recommended for You";
 
+  // Determine subtitle based on strategy
+  const showCollaborativeSubtitle = strategy === "hybrid_collaborative_heavy";
+
   // Map recommendations to Movie objects for MovieCard
   const movies: Movie[] = recommendations.map((rec) => ({
     id: rec.movie_id,
@@ -79,6 +87,11 @@ export default function RecommendationSection() {
       {strategy === "popularity_fallback" && (
         <p className="text-sm text-slate-400 mb-4">
           Rate 5+ movies to get personalized recommendations
+        </p>
+      )}
+      {showCollaborativeSubtitle && (
+        <p className="text-xs text-slate-500 mb-4">
+          Powered by users with similar taste
         </p>
       )}
       <div className="flex overflow-x-auto gap-4 scrollbar-hide pb-4">

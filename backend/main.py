@@ -6,10 +6,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from config import settings
-from services.recommender import RecommenderService
-
-# Create recommender service instance
-recommender_service = RecommenderService()
+from dependencies import recommender_service
 
 
 @asynccontextmanager
