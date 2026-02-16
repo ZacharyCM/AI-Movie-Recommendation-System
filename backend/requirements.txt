@@ -8,3 +8,5 @@ scikit-learn==1.6.1
 numpy>=1.26.0
 joblib>=1.4.0
 supabase>=2.0.0
+scikit-surprise==1.1.4
+pandas>=2.2.0
