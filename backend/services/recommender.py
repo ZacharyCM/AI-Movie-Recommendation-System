@@ -136,7 +136,8 @@ class RecommenderService:
         weighted_sum = rated_vectors.T.dot(weights)
         user_profile = weighted_sum / weights.sum()
 
-        return user_profile.T
+        # Reshape to 2D (1, n_features) for cosine_similarity
+        return user_profile.reshape(1, -1)
 
     def get_recommendations(
         self,
