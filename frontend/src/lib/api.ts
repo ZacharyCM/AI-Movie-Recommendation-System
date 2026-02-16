@@ -65,3 +65,52 @@ export async function fetchRecommendations(
   if (!res.ok) throw new Error(res.statusText);
   return res.json();
 }
+
+export interface SemanticSearchResult {
+  movie_id: number;
+  title: string;
+  year: string;
+  genres: string;
+  score: number;
+}
+
+export interface SemanticSearchResponse {
+  results: SemanticSearchResult[];
+  query: string;
+}
+
+export async function fetchSemanticSearch(
+  query: string,
+  topN: number = 10
+): Promise<SemanticSearchResponse> {
+  const res = await fetch(
+    `${API_URL}/api/search/semantic?q=${encodeURIComponent(query)}&top_n=${topN}`,
+    { cache: "no-store" }
+  );
+  if (!res.ok) throw new Error(res.statusText);
+  return res.json();
+}
+
+export interface ExplanationResponse {
+  movie_id: number;
+  explanation: string;
+  factors: string[];
+  cached: boolean;
+}
+
+export async function fetchExplanation(
+  accessToken: string,
+  movieId: number
+): Promise<ExplanationResponse> {
+  const res = await fetch(
+    `${API_URL}/api/recommendations/${movieId}/explain`,
+    {
+      cache: "no-store",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  if (!res.ok) throw new Error(res.statusText);
+  return res.json();
+}

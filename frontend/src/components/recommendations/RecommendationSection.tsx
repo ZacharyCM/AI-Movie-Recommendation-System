@@ -2,6 +2,7 @@
 
 import { useRecommendations } from "@/hooks/useRecommendations";
 import MovieCard from "@/components/movies/MovieCard";
+import ExplanationButton from "@/components/recommendations/ExplanationButton";
 import type { Movie } from "@/types/movie";
 
 export default function RecommendationSection() {
@@ -95,9 +96,12 @@ export default function RecommendationSection() {
         </p>
       )}
       <div className="flex overflow-x-auto gap-4 scrollbar-hide pb-4">
-        {movies.map((movie) => (
-          <div key={movie.id} className="min-w-[180px] w-[180px]">
+        {movies.map((movie, index) => (
+          <div key={movie.id} className="min-w-[180px] w-[180px] flex flex-col">
             <MovieCard movie={movie} />
+            {strategy !== "popularity_fallback" && (
+              <ExplanationButton movieId={recommendations[index].movie_id} />
+            )}
           </div>
         ))}
       </div>
