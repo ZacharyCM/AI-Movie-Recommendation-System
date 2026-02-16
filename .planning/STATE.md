@@ -10,17 +10,17 @@ See: .planning/PROJECT.md (updated 2026-02-08)
 ## Current Position
 
 Phase: 4 of 6 (Collaborative Filtering & Hybrid Fusion)
-Plan: 1 of 2 in current phase
-Status: In progress
-Last activity: 2026-02-16 -- Completed 04-01-PLAN.md (SVD Collaborative Filtering Foundation)
+Plan: 2 of 2 in current phase
+Status: Complete
+Last activity: 2026-02-16 -- Completed 04-02-PLAN.md (Hybrid Fusion Layer Integration)
 
-Progress: [█████-----] 50% (Phase 4)
+Progress: [██████████] 100% (Phase 4)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 11
-- Average duration: 3m 7s
+- Total plans completed: 12
+- Average duration: 3m 11s
 - Total execution time: 0.6 hours
 
 **By Phase:**
@@ -30,18 +30,15 @@ Progress: [█████-----] 50% (Phase 4)
 | 01-foundation-data-infrastructure | 5 | 20m | 4m |
 | 02-user-engagement-cold-start | 3 | 7m 47s | 2m 36s |
 | 03-content-based-recommendations | 2 | 7m 15s | 3m 37s |
-| 04-collaborative-filtering-hybrid-fusion | 1 | 3m 30s | 3m 30s |
+| 04-collaborative-filtering-hybrid-fusion | 2 | 7m 24s | 3m 42s |
 
 **Recent Executions:**
+- 04-02 (Hybrid Fusion Layer Integration): 3m 54s, 2 tasks, 6 files
 - 04-01 (SVD Collaborative Filtering Foundation): 3m 30s, 2 tasks, 3 files
 - 03-02 (Recommendation UI Integration): 3m 8s, 2 tasks, 6 files
 - 03-01 (TF-IDF Recommendation Engine): 4m 7s, 2 tasks, 8 files
 - 02-04 (Taste Quiz Onboarding): 2m 38s, 2 tasks, 5 files
 - 02-03 (User Profile Page): 2m, 2 tasks, 5 files
-- 02-02 (UI Integration): 2m 9s, 2 tasks, 3 files
-
-*Updated after each plan completion*
-| Phase 02 P03 | 2m | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -84,6 +81,10 @@ Recent decisions affecting current work:
 - [04-01]: SVD hyperparameters: 100 factors, 20 epochs, lr=0.005, reg=0.02 (RMSE 0.964)
 - [04-01]: Combined MovieLens seed data with real Supabase ratings for hybrid training
 - [04-01]: Prefixed MovieLens user IDs with "ml_" to prevent UUID collision
+- [04-02]: Adaptive alpha weighting: 0.0 for <5 ratings, 0.0-0.3 for 5-19 ratings, 0.7 for 20+ ratings
+- [04-02]: Hybrid scores computed as (1 - alpha) * content_score + alpha * cf_score
+- [04-02]: Diversity injection from 50th-80th percentile (mid-ranked movies) to prevent filter bubbles
+- [04-02]: Created dependencies.py module to avoid circular imports between main.py and routers
 
 ### Pending Todos
 
@@ -97,5 +98,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed 04-01-PLAN.md (SVD Collaborative Filtering Foundation). Ready for 04-02-PLAN.md.
+Stopped at: Completed 04-02-PLAN.md (Hybrid Fusion Layer Integration). Phase 4 complete.
 Resume file: None
