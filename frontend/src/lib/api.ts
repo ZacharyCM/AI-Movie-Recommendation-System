@@ -31,3 +31,37 @@ export async function fetchMovieDetail(id: number): Promise<MovieDetail> {
   if (!res.ok) throw new Error(res.statusText);
   return res.json();
 }
+
+export interface Recommendation {
+  movie_id: number;
+  title: string;
+  poster_path: string | null;
+  overview: string;
+  vote_average: number;
+  release_date: string;
+  score: number;
+  reason: string;
+}
+
+export interface RecommendationList {
+  recommendations: Recommendation[];
+  strategy: string;
+  total_ratings: number;
+}
+
+export async function fetchRecommendations(
+  accessToken: string,
+  topN: number = 10
+): Promise<RecommendationList> {
+  const res = await fetch(
+    `${API_URL}/api/recommendations?top_n=${topN}`,
+    {
+      cache: "no-store",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  if (!res.ok) throw new Error(res.statusText);
+  return res.json();
+}
