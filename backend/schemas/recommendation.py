@@ -11,13 +11,13 @@ class RecommendationResponse(BaseModel):
     overview: str
     vote_average: float
     release_date: str
-    score: float  # cosine similarity score (0-1)
-    reason: str  # "content_based" or "popular"
+    score: float  # similarity/hybrid score (0-1)
+    reason: str  # "content_based", "popular", "hybrid_content_heavy", or "hybrid_collaborative_heavy"
 
 
 class RecommendationListResponse(BaseModel):
     """List of recommendations with strategy metadata."""
 
     recommendations: list[RecommendationResponse]
-    strategy: str  # "content_based" or "popularity_fallback"
+    strategy: str  # "content_based", "popularity_fallback", "hybrid_content_heavy", or "hybrid_collaborative_heavy"
     total_ratings: int  # how many ratings user has

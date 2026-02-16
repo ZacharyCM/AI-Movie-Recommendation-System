@@ -15,8 +15,16 @@ recommender_service = RecommenderService()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """FastAPI lifespan context manager for startup/shutdown."""
-    # Startup: Load recommender model
+    # Startup: Load recommender models
     recommender_service.load_model("ml/models")
+    recommender_service.load_collaborative_model("ml/models")
+
+    # Log model status
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.info(f"Content-based model loaded: {recommender_service.is_loaded()}")
+    logger.info(f"Collaborative filtering model loaded: {recommender_service.is_collaborative_loaded()}")
+
     yield
     # Shutdown: cleanup handled by garbage collection
 
