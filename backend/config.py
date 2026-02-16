@@ -13,6 +13,8 @@ class Settings(BaseSettings):
 
     tmdb_api_key: str = ""
     frontend_url: str = "http://localhost:3000"
+    supabase_url: str = ""
+    supabase_service_role_key: str = ""
 
 
 settings = Settings()
