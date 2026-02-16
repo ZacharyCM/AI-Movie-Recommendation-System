@@ -99,13 +99,13 @@ Plans:
   3. AI explanations reference multiple factors (content similarity, what similar users enjoyed, trending signals) in a natural, readable way
   4. All AI-recommended movies exist in the catalog (no hallucinated titles) and explanations reference accurate movie details
   5. Explanations are cached per user-movie pair so repeated views load instantly without additional Claude API calls
-**Plans**: TBD
-**Research flag**: NEEDS RESEARCH. RAG pipeline design for recommendation explanations is a niche application. Prompt engineering for constrained output, validation strategies, and error handling need domain-specific research. Consider research-phase before implementation.
+**Plans**: 3 plans
+**Research flag**: Research completed (05-RESEARCH.md). ChromaDB + sentence-transformers + anthropic SDK + cmdk stack.
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
-- [ ] 05-03: TBD
+- [ ] 05-01-PLAN.md — ChromaDB embeddings foundation: sentence-transformers embedding generation + EmbeddingStore interface
+- [ ] 05-02-PLAN.md — AI explanations: RAG pipeline (retrieval + Claude generation), PostgreSQL caching, "Why this?" button UI
+- [ ] 05-03-PLAN.md — Natural language search: semantic vector search service + Cmd+K command palette UI
 
 ### Phase 6: Netflix-Style UI & Discovery
 **Goal**: The application looks and feels like a premium streaming platform with cinematic presentation, smooth animations, and mood-based discovery that makes browsing feel effortless
@@ -189,7 +189,7 @@ All phases are sequential. Each phase builds on the outputs of the previous phas
 | 2. User Engagement & Cold Start | 4/4 | ✓ Complete | 2026-02-14 |
 | 3. Content-Based Recommendations | 2/2 | ✓ Complete | 2026-02-16 |
 | 4. Collaborative Filtering & Hybrid Fusion | 2/2 | ✓ Complete | 2026-02-16 |
-| 5. Embeddings, RAG & AI Explanations | 0/TBD | Not started | - |
+| 5. Embeddings, RAG & AI Explanations | 0/3 | Not started | - |
 | 6. Netflix-Style UI & Discovery | 0/TBD | Not started | - |
 
 ---
