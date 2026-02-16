@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-02-08)
 
 ## Current Position
 
-Phase: 4 of 6 (Collaborative Filtering & Hybrid Fusion)
-Plan: 2 of 2 in current phase
-Status: Phase complete, verified
-Last activity: 2026-02-16 -- Phase 4 verified and marked complete
+Phase: 5 of 6 (Embeddings, RAG & AI Explanations)
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-02-16 -- Completed plan 05-01 (Movie Embeddings & ChromaDB Foundation)
 
-Progress: [██████████] 100% (Phase 4)
+Progress: [█████████░] 33% (Phase 5)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 12
-- Average duration: 3m 11s
-- Total execution time: 0.6 hours
+- Total plans completed: 13
+- Average duration: 3m 26s
+- Total execution time: 0.7 hours
 
 **By Phase:**
 
@@ -31,14 +31,15 @@ Progress: [██████████] 100% (Phase 4)
 | 02-user-engagement-cold-start | 3 | 7m 47s | 2m 36s |
 | 03-content-based-recommendations | 2 | 7m 15s | 3m 37s |
 | 04-collaborative-filtering-hybrid-fusion | 2 | 7m 24s | 3m 42s |
+| 05-embeddings-rag-ai-explanations | 1 | 5m 28s | 5m 28s |
 
 **Recent Executions:**
+- 05-01 (Movie Embeddings & ChromaDB Foundation): 5m 28s, 2 tasks, 3 files
 - 04-02 (Hybrid Fusion Layer Integration): 3m 54s, 2 tasks, 6 files
 - 04-01 (SVD Collaborative Filtering Foundation): 3m 30s, 2 tasks, 3 files
 - 03-02 (Recommendation UI Integration): 3m 8s, 2 tasks, 6 files
 - 03-01 (TF-IDF Recommendation Engine): 4m 7s, 2 tasks, 8 files
 - 02-04 (Taste Quiz Onboarding): 2m 38s, 2 tasks, 5 files
-- 02-03 (User Profile Page): 2m, 2 tasks, 5 files
 
 ## Accumulated Context
 
@@ -85,6 +86,9 @@ Recent decisions affecting current work:
 - [04-02]: Hybrid scores computed as (1 - alpha) * content_score + alpha * cf_score
 - [04-02]: Diversity injection from 50th-80th percentile (mid-ranked movies) to prevent filter bubbles
 - [04-02]: Created dependencies.py module to avoid circular imports between main.py and routers
+- [05-01]: PersistentClient for ChromaDB in development (not HttpClient for distributed)
+- [05-01]: Natural language text representations for embeddings (not space-stripped like TF-IDF)
+- [05-01]: Sentence-transformers model all-MiniLM-L6-v2 (384-dim, balanced speed/quality)
 
 ### Pending Todos
 
@@ -98,5 +102,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Phase 4 complete and verified. Ready to plan Phase 5 (Embeddings, RAG & AI Explanations).
+Stopped at: Completed 05-01 (Movie Embeddings & ChromaDB Foundation). Ready for 05-02 (RAG AI Explanations).
 Resume file: None
