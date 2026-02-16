@@ -65,9 +65,9 @@ export async function getUserStats(): Promise<UserStats> {
     .eq('user_id', user.id);
 
   // Fetch watchlist count
-  const { data: watchlist } = await supabase
+  const { count: watchlistCount } = await supabase
     .from('watchlist')
-    .select('id', { count: 'exact', head: true })
+    .select('*', { count: 'exact', head: true })
     .eq('user_id', user.id);
 
   // Fetch profile for member_since
@@ -78,7 +78,7 @@ export async function getUserStats(): Promise<UserStats> {
     .single();
 
   const totalRatings = ratings?.length || 0;
-  const totalWatchlist = watchlist?.length || 0;
+  const totalWatchlist = watchlistCount || 0;
   const averageRating = totalRatings > 0
     ? ratings!.reduce((sum, r) => sum + r.rating, 0) / totalRatings
     : 0;

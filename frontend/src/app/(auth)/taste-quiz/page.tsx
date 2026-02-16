@@ -16,15 +16,24 @@ export default function TasteQuizPage() {
   const [ratings, setRatings] = useState<Map<number, number>>(new Map());
   const [skipped, setSkipped] = useState<Set<number>>(new Set());
   const [isComplete, setIsComplete] = useState(false);
+  const [initialCheckDone, setInitialCheckDone] = useState(false);
 
-  // Check if user has already completed the taste quiz
+  // Check if user has already completed the taste quiz (only on initial load)
   useEffect(() => {
-    if (userRatings && hasCompletedTasteQuiz(userRatings.length)) {
-      // User already has enough ratings, set cookie and redirect
-      document.cookie = 'taste-quiz-complete=true; path=/; max-age=31536000'; // 1 year
-      router.push('/browse');
+    if (userRatings && !initialCheckDone) {
+      if (hasCompletedTasteQuiz(userRatings.length)) {
+        document.cookie = 'taste-quiz-complete=true; path=/; max-age=31536000';
+        router.push('/browse');
+      } else {
+        setInitialCheckDone(true);
+      }
     }
-  }, [userRatings, router]);
+  }, [userRatings, initialCheckDone, router]);
+
+  // Don't render quiz UI until we've confirmed user needs the quiz
+  if (!initialCheckDone) {
+    return null;
+  }
 
   const currentMovie = TASTE_QUIZ_MOVIES[currentIndex];
   const totalMovies = TASTE_QUIZ_MOVIES.length;
@@ -142,6 +151,16 @@ export default function TasteQuizPage() {
           currentRating={ratings.get(currentMovie.tmdbId) || 0}
           onSkip={handleSkip}
         />
+      )}
+
+      {/* Early exit option after minimum ratings */}
+      {ratedCount >= MINIMUM_RATINGS && (
+        <button
+          onClick={handleContinue}
+          className="text-green-400 hover:text-green-300 text-sm font-medium transition-colors"
+        >
+          You're ready! Skip to browsing →
+        </button>
       )}
     </div>
   );

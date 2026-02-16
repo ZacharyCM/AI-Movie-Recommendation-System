@@ -35,6 +35,7 @@ export function useAuth() {
 
   const signOut = async () => {
     await supabase.auth.signOut();
+    document.cookie = "taste-quiz-complete=; path=/; max-age=0";
     router.push("/login");
   };
 

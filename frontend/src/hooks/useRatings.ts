@@ -85,6 +85,7 @@ export function useRateMovie() {
       if (queryClient.isMutating({ mutationKey: ['ratings'] }) === 1) {
         queryClient.invalidateQueries({ queryKey: ['ratings', variables.movieId] });
         queryClient.invalidateQueries({ queryKey: ['user-ratings'] });
+        queryClient.invalidateQueries({ queryKey: ['user-stats'] });
       }
     }
   });

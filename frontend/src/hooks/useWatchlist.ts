@@ -94,6 +94,7 @@ export function useToggleWatchlist() {
       if (data && queryClient.isMutating({ mutationKey: ['watchlist'] }) === 1) {
         queryClient.invalidateQueries({ queryKey: ['watchlist', data.movieId] });
         queryClient.invalidateQueries({ queryKey: ['user-watchlist'] });
+        queryClient.invalidateQueries({ queryKey: ['user-stats'] });
       }
     }
   });

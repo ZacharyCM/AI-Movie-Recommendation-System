@@ -35,7 +35,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
         if (error) throw error;
         router.push("/browse");
       } else if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email,
           password,
           options: {
@@ -43,7 +43,12 @@ export default function AuthForm({ mode }: AuthFormProps) {
           },
         });
         if (error) throw error;
-        setSuccessMessage("Check your email for a confirmation link.");
+        // If session exists, user is immediately authenticated (email confirmation disabled)
+        if (data.session) {
+          router.push("/browse");
+        } else {
+          setSuccessMessage("Check your email for a confirmation link.");
+        }
       } else if (mode === "reset") {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: `${window.location.origin}/auth/callback`,
