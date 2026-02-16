@@ -22,6 +22,11 @@ async def lifespan(app: FastAPI):
     logger.info(f"Content-based model loaded: {recommender_service.is_loaded()}")
     logger.info(f"Collaborative filtering model loaded: {recommender_service.is_collaborative_loaded()}")
 
+    # Semantic search service is initialized in dependencies.py
+    # SentenceTransformer model loads on first import (cached for subsequent requests)
+    from dependencies import semantic_search_service, embedding_store
+    logger.info(f"Semantic search initialized with {embedding_store.count()} movie embeddings")
+
     yield
     # Shutdown: cleanup handled by garbage collection
 
@@ -40,9 +45,11 @@ app.add_middleware(
 
 from routers.movies import router as movies_router
 from routers.recommendations import router as recommendations_router
+from routers.search import router as search_router
 
 app.include_router(movies_router)
 app.include_router(recommendations_router)
+app.include_router(search_router)
 
 
 @app.get("/health")
