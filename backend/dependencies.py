@@ -5,6 +5,7 @@ Avoids circular imports by providing a central location for service instances.
 """
 from services.recommender import RecommenderService
 from services.semantic_search import SemanticSearchService
+from services.explanations import ExplanationService
 from ml.embeddings.store import EmbeddingStore
 
 # Create recommender service instance
@@ -14,6 +15,7 @@ recommender_service = RecommenderService()
 # These are initialized at import time but models loaded in lifespan
 embedding_store = EmbeddingStore()
 semantic_search_service = SemanticSearchService(embedding_store)
+explanation_service = ExplanationService()
 
 
 def get_recommender_service() -> RecommenderService:
@@ -29,3 +31,8 @@ def get_semantic_search_service() -> SemanticSearchService:
 def get_embedding_store() -> EmbeddingStore:
     """Get the global embedding store instance."""
     return embedding_store
+
+
+def get_explanation_service() -> ExplanationService:
+    """Get the global explanation service instance."""
+    return explanation_service

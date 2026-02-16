@@ -15,6 +15,7 @@ class Settings(BaseSettings):
     frontend_url: str = "http://localhost:3000"
     supabase_url: str = ""
     supabase_service_role_key: str = ""
+    anthropic_api_key: str = ""
 
 
 settings = Settings()

@@ -21,3 +21,12 @@ class RecommendationListResponse(BaseModel):
     recommendations: list[RecommendationResponse]
     strategy: str  # "content_based", "popularity_fallback", "hybrid_content_heavy", or "hybrid_collaborative_heavy"
     total_ratings: int  # how many ratings user has
+
+
+class ExplanationResponse(BaseModel):
+    """AI-generated explanation for a recommendation."""
+
+    movie_id: int
+    explanation: str
+    factors: list[str]  # e.g., ["content_similarity", "collaborative_filtering"]
+    cached: bool  # whether this was served from cache

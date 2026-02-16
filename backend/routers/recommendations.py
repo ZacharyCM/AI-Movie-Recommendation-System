@@ -9,8 +9,8 @@ from fastapi import APIRouter, HTTPException, Header, Query
 from supabase import create_client
 from config import settings
 from services.tmdb import TMDBService
-from schemas.recommendation import RecommendationResponse, RecommendationListResponse
-from dependencies import recommender_service
+from schemas.recommendation import RecommendationResponse, RecommendationListResponse, ExplanationResponse
+from dependencies import recommender_service, explanation_service
 
 router = APIRouter(prefix="/api/recommendations", tags=["recommendations"])
 
@@ -174,4 +174,35 @@ async def get_recommendations(
         recommendations=recommendations_list,
         strategy=strategy,
         total_ratings=total_ratings
+    )
+
+
+@router.get("/{movie_id}/explain", response_model=ExplanationResponse)
+async def explain_recommendation(
+    movie_id: int,
+    authorization: str = Header(None)
+):
+    """
+    Get AI-generated explanation for why a movie was recommended.
+
+    Uses RAG pipeline: retrieves user context and similar movies from ChromaDB,
+    generates natural language explanation via Claude, caches for 7 days.
+
+    NOTE: Explanation service not yet implemented (Plan 05-02).
+    This endpoint will return a placeholder until then.
+
+    Args:
+        movie_id: TMDB movie ID to explain
+        authorization: Bearer token
+
+    Returns:
+        ExplanationResponse with explanation text, factors, and cache status
+    """
+    # Authenticate user
+    user_id = await get_current_user_id(authorization)
+
+    # Placeholder response until explanation service is implemented
+    raise HTTPException(
+        status_code=501,
+        detail="AI explanations not yet implemented. Coming in Plan 05-02."
     )
