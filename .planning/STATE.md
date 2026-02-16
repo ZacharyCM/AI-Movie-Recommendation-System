@@ -11,17 +11,17 @@ See: .planning/PROJECT.md (updated 2026-02-08)
 
 Phase: 5 of 6 (Embeddings, RAG & AI Explanations)
 Plan: 3 of 3 in current phase
-Status: In progress
-Last activity: 2026-02-16 -- Completed plan 05-03 (Semantic Search with Cmd+K Command Palette)
+Status: Complete
+Last activity: 2026-02-16 -- Completed plan 05-02 (AI-Powered Recommendation Explanations with RAG Pipeline)
 
 Progress: [██████████] 100% (Phase 5)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 14
-- Average duration: 3m 30s
-- Total execution time: 0.8 hours
+- Total plans completed: 15
+- Average duration: 3m 34s
+- Total execution time: 0.9 hours
 
 **By Phase:**
 
@@ -31,9 +31,10 @@ Progress: [██████████] 100% (Phase 5)
 | 02-user-engagement-cold-start | 3 | 7m 47s | 2m 36s |
 | 03-content-based-recommendations | 2 | 7m 15s | 3m 37s |
 | 04-collaborative-filtering-hybrid-fusion | 2 | 7m 24s | 3m 42s |
-| 05-embeddings-rag-ai-explanations | 2 | 10m 38s | 5m 19s |
+| 05-embeddings-rag-ai-explanations | 3 | 16m 24s | 5m 28s |
 
 **Recent Executions:**
+- 05-02 (AI-Powered Recommendation Explanations): 5m 46s, 2 tasks, 12 files
 - 05-03 (Semantic Search with Cmd+K Command Palette): 5m 10s, 2 tasks, 8 files
 - 05-01 (Movie Embeddings & ChromaDB Foundation): 5m 28s, 2 tasks, 3 files
 - 04-02 (Hybrid Fusion Layer Integration): 3m 54s, 2 tasks, 6 files
@@ -89,6 +90,12 @@ Recent decisions affecting current work:
 - [05-01]: PersistentClient for ChromaDB in development (not HttpClient for distributed)
 - [05-01]: Natural language text representations for embeddings (not space-stripped like TF-IDF)
 - [05-01]: Sentence-transformers model all-MiniLM-L6-v2 (384-dim, balanced speed/quality)
+- [05-02]: Claude Sonnet 4.5 for explanations (cost-effective, max_tokens=400, temperature=0.7)
+- [05-02]: 7-day cache expiration for AI explanations balances freshness with cost reduction
+- [05-02]: Structured prompt with XML tags (<user_taste>, <recommended_movie>, etc.) for Claude
+- [05-02]: Graceful fallback (genre-based explanation) when Claude API unavailable
+- [05-02]: Lazy loading pattern - only fetch explanation when user clicks "Why this?"
+- [05-02]: Self-bootstrapping ai_explanations table creation via Supabase service role client
 - [05-03]: No Claude re-ranking in MVP - vector search alone sufficient for 260-movie catalog
 - [05-03]: Disabled cmdk client-side filtering (shouldFilter=false) for server-side semantic filtering
 - [05-03]: 3-character minimum query length before triggering semantic search
@@ -100,11 +107,12 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 5 (RAG) is highest-risk, highest-value. Research-phase recommended before implementation to address prompt engineering, hallucination prevention, and caching strategies.
+- Anthropic API key required for AI explanations to function (user setup needed)
+- Phase 5 complete - RAG implementation successful with hallucination prevention via context-only references
 - Phase 4 fusion layer weighting may need experimentation. No exact formula established yet.
 
 ## Session Continuity
 
 Last session: 2026-02-16
-Stopped at: Completed 05-03 (Semantic Search with Cmd+K Command Palette). Phase 5 complete.
+Stopped at: Completed 05-02 (AI-Powered Recommendation Explanations). Phase 5 complete (all 3 plans done).
 Resume file: None
