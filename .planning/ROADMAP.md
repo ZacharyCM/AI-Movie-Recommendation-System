@@ -66,11 +66,12 @@ Plans:
   1. User who has rated 5+ movies sees a personalized "Recommended for You" section with results that reflect their rated genres and themes
   2. Recommendations update after the user rates additional movies (not stale)
   3. User with fewer than 5 ratings sees a meaningful fallback (popularity-based or prompt to rate more)
-**Plans**: TBD
+**Plans**: 2 plans
 **Research flag**: Standard patterns with domain-specific considerations. Light research may be needed on TF-IDF feature engineering for movie metadata.
 
 Plans:
-- [ ] 03-01: TBD
+- [ ] 03-01-PLAN.md — TF-IDF model builder, recommender service, and FastAPI recommendation endpoint with cold-start fallback
+- [ ] 03-02-PLAN.md — Frontend RecommendationSection component on browse page with TanStack Query hook and cache invalidation on rating
 
 ### Phase 4: Collaborative Filtering & Hybrid Fusion
 **Goal**: Users benefit from the collective taste of all users through collaborative filtering, merged with content-based signals via a hybrid fusion layer that prevents filter bubbles
@@ -186,7 +187,7 @@ All phases are sequential. Each phase builds on the outputs of the previous phas
 |-------|---------------|--------|-----------|
 | 1. Foundation & Data Infrastructure | 5/5 | ✓ Complete | 2026-02-12 |
 | 2. User Engagement & Cold Start | 4/4 | ✓ Complete | 2026-02-14 |
-| 3. Content-Based Recommendations | 0/TBD | Not started | - |
+| 3. Content-Based Recommendations | 0/2 | In progress | - |
 | 4. Collaborative Filtering & Hybrid Fusion | 0/TBD | Not started | - |
 | 5. Embeddings, RAG & AI Explanations | 0/TBD | Not started | - |
 | 6. Netflix-Style UI & Discovery | 0/TBD | Not started | - |
