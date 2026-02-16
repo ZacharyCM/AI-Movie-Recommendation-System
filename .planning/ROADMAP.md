@@ -12,7 +12,7 @@ NetflixRecs delivers a premium movie discovery platform powered by hybrid AI rec
 
 - [x] **Phase 1: Foundation & Data Infrastructure** - Auth, database, TMDB integration, and catalog browsing *(completed 2026-02-12)*
 - [x] **Phase 2: User Engagement & Cold Start** - Ratings, watchlist, profiles, and taste quiz onboarding *(completed 2026-02-14)*
-- [ ] **Phase 3: Content-Based Recommendations** - TF-IDF + cosine similarity personalized recommendations
+- [x] **Phase 3: Content-Based Recommendations** - TF-IDF + cosine similarity personalized recommendations *(completed 2026-02-16)*
 - [ ] **Phase 4: Collaborative Filtering & Hybrid Fusion** - SVD/KNN collaborative model with hybrid fusion layer
 - [ ] **Phase 5: Embeddings, RAG & AI Explanations** - ChromaDB embeddings, Claude RAG pipeline, and AI explanations **(CORE DIFFERENTIATOR)**
 - [ ] **Phase 6: Netflix-Style UI & Discovery** - Cinematic UI polish, animations, responsive design, and mood-based discovery
@@ -70,8 +70,8 @@ Plans:
 **Research flag**: Standard patterns with domain-specific considerations. Light research may be needed on TF-IDF feature engineering for movie metadata.
 
 Plans:
-- [ ] 03-01-PLAN.md — TF-IDF model builder, recommender service, and FastAPI recommendation endpoint with cold-start fallback
-- [ ] 03-02-PLAN.md — Frontend RecommendationSection component on browse page with TanStack Query hook and cache invalidation on rating
+- [x] 03-01-PLAN.md — TF-IDF model builder, recommender service, and FastAPI recommendation endpoint with cold-start fallback
+- [x] 03-02-PLAN.md — Frontend RecommendationSection component on browse page with TanStack Query hook and cache invalidation on rating
 
 ### Phase 4: Collaborative Filtering & Hybrid Fusion
 **Goal**: Users benefit from the collective taste of all users through collaborative filtering, merged with content-based signals via a hybrid fusion layer that prevents filter bubbles
@@ -187,7 +187,7 @@ All phases are sequential. Each phase builds on the outputs of the previous phas
 |-------|---------------|--------|-----------|
 | 1. Foundation & Data Infrastructure | 5/5 | ✓ Complete | 2026-02-12 |
 | 2. User Engagement & Cold Start | 4/4 | ✓ Complete | 2026-02-14 |
-| 3. Content-Based Recommendations | 0/2 | In progress | - |
+| 3. Content-Based Recommendations | 2/2 | ✓ Complete | 2026-02-16 |
 | 4. Collaborative Filtering & Hybrid Fusion | 0/TBD | Not started | - |
 | 5. Embeddings, RAG & AI Explanations | 0/TBD | Not started | - |
 | 6. Netflix-Style UI & Discovery | 0/TBD | Not started | - |
