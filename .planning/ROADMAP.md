@@ -82,12 +82,12 @@ Plans:
   2. Recommendations include 10-20% exploration picks outside the user's established taste profile (diversity injection)
   3. New users (few ratings) get predominantly content-based recommendations while established users get a balanced hybrid blend
   4. MovieLens seed data is integrated so collaborative filtering works from day one without requiring organic user ratings
-**Plans**: TBD
-**Research flag**: May need research. Fusion layer weighting and diversity injection strategies may benefit from domain research.
+**Plans**: 2 plans
+**Research flag**: Research completed (04-RESEARCH.md). Surprise SVD, adaptive alpha weights, MovieLens 100K seed data.
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
+- [ ] 04-01-PLAN.md — MovieLens 100K download, TMDB ID mapping, SVD model training script
+- [ ] 04-02-PLAN.md — Hybrid fusion layer in RecommenderService, adaptive weights, diversity injection, API + frontend updates
 
 ### Phase 5: Embeddings, RAG & AI Explanations (CORE DIFFERENTIATOR)
 **Goal**: Users understand WHY each recommendation fits their taste through Claude-powered natural language explanations, and can search for movies using natural language queries
