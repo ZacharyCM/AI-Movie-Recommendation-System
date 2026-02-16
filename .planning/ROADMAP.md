@@ -13,7 +13,7 @@ NetflixRecs delivers a premium movie discovery platform powered by hybrid AI rec
 - [x] **Phase 1: Foundation & Data Infrastructure** - Auth, database, TMDB integration, and catalog browsing *(completed 2026-02-12)*
 - [x] **Phase 2: User Engagement & Cold Start** - Ratings, watchlist, profiles, and taste quiz onboarding *(completed 2026-02-14)*
 - [x] **Phase 3: Content-Based Recommendations** - TF-IDF + cosine similarity personalized recommendations *(completed 2026-02-16)*
-- [ ] **Phase 4: Collaborative Filtering & Hybrid Fusion** - SVD/KNN collaborative model with hybrid fusion layer
+- [x] **Phase 4: Collaborative Filtering & Hybrid Fusion** - SVD/KNN collaborative model with hybrid fusion layer *(completed 2026-02-16)*
 - [ ] **Phase 5: Embeddings, RAG & AI Explanations** - ChromaDB embeddings, Claude RAG pipeline, and AI explanations **(CORE DIFFERENTIATOR)**
 - [ ] **Phase 6: Netflix-Style UI & Discovery** - Cinematic UI polish, animations, responsive design, and mood-based discovery
 
@@ -86,8 +86,8 @@ Plans:
 **Research flag**: Research completed (04-RESEARCH.md). Surprise SVD, adaptive alpha weights, MovieLens 100K seed data.
 
 Plans:
-- [ ] 04-01-PLAN.md — MovieLens 100K download, TMDB ID mapping, SVD model training script
-- [ ] 04-02-PLAN.md — Hybrid fusion layer in RecommenderService, adaptive weights, diversity injection, API + frontend updates
+- [x] 04-01-PLAN.md — MovieLens 100K download, TMDB ID mapping, SVD model training script
+- [x] 04-02-PLAN.md — Hybrid fusion layer in RecommenderService, adaptive weights, diversity injection, API + frontend updates
 
 ### Phase 5: Embeddings, RAG & AI Explanations (CORE DIFFERENTIATOR)
 **Goal**: Users understand WHY each recommendation fits their taste through Claude-powered natural language explanations, and can search for movies using natural language queries
@@ -188,7 +188,7 @@ All phases are sequential. Each phase builds on the outputs of the previous phas
 | 1. Foundation & Data Infrastructure | 5/5 | ✓ Complete | 2026-02-12 |
 | 2. User Engagement & Cold Start | 4/4 | ✓ Complete | 2026-02-14 |
 | 3. Content-Based Recommendations | 2/2 | ✓ Complete | 2026-02-16 |
-| 4. Collaborative Filtering & Hybrid Fusion | 0/TBD | Not started | - |
+| 4. Collaborative Filtering & Hybrid Fusion | 2/2 | ✓ Complete | 2026-02-16 |
 | 5. Embeddings, RAG & AI Explanations | 0/TBD | Not started | - |
 | 6. Netflix-Style UI & Discovery | 0/TBD | Not started | - |
 
