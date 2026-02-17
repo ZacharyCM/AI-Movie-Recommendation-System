@@ -14,7 +14,7 @@ NetflixRecs delivers a premium movie discovery platform powered by hybrid AI rec
 - [x] **Phase 2: User Engagement & Cold Start** - Ratings, watchlist, profiles, and taste quiz onboarding *(completed 2026-02-14)*
 - [x] **Phase 3: Content-Based Recommendations** - TF-IDF + cosine similarity personalized recommendations *(completed 2026-02-16)*
 - [x] **Phase 4: Collaborative Filtering & Hybrid Fusion** - SVD/KNN collaborative model with hybrid fusion layer *(completed 2026-02-16)*
-- [ ] **Phase 5: Embeddings, RAG & AI Explanations** - ChromaDB embeddings, Claude RAG pipeline, and AI explanations **(CORE DIFFERENTIATOR)**
+- [x] **Phase 5: Embeddings, RAG & AI Explanations** - ChromaDB embeddings, Claude RAG pipeline, and AI explanations *(completed 2026-02-16)* **(CORE DIFFERENTIATOR)**
 - [ ] **Phase 6: Netflix-Style UI & Discovery** - Cinematic UI polish, animations, responsive design, and mood-based discovery
 
 ## Phase Details
@@ -103,9 +103,9 @@ Plans:
 **Research flag**: Research completed (05-RESEARCH.md). ChromaDB + sentence-transformers + anthropic SDK + cmdk stack.
 
 Plans:
-- [ ] 05-01-PLAN.md — ChromaDB embeddings foundation: sentence-transformers embedding generation + EmbeddingStore interface
-- [ ] 05-02-PLAN.md — AI explanations: RAG pipeline (retrieval + Claude generation), PostgreSQL caching, "Why this?" button UI
-- [ ] 05-03-PLAN.md — Natural language search: semantic vector search service + Cmd+K command palette UI
+- [x] 05-01-PLAN.md — ChromaDB embeddings foundation: sentence-transformers embedding generation + EmbeddingStore interface
+- [x] 05-02-PLAN.md — AI explanations: RAG pipeline (retrieval + Claude generation), PostgreSQL caching, "Why this?" button UI
+- [x] 05-03-PLAN.md — Natural language search: semantic vector search service + Cmd+K command palette UI
 
 ### Phase 6: Netflix-Style UI & Discovery
 **Goal**: The application looks and feels like a premium streaming platform with cinematic presentation, smooth animations, and mood-based discovery that makes browsing feel effortless
@@ -189,7 +189,7 @@ All phases are sequential. Each phase builds on the outputs of the previous phas
 | 2. User Engagement & Cold Start | 4/4 | ✓ Complete | 2026-02-14 |
 | 3. Content-Based Recommendations | 2/2 | ✓ Complete | 2026-02-16 |
 | 4. Collaborative Filtering & Hybrid Fusion | 2/2 | ✓ Complete | 2026-02-16 |
-| 5. Embeddings, RAG & AI Explanations | 0/3 | Not started | - |
+| 5. Embeddings, RAG & AI Explanations | 3/3 | ✓ Complete | 2026-02-16 |
 | 6. Netflix-Style UI & Discovery | 0/TBD | Not started | - |
 
 ---
