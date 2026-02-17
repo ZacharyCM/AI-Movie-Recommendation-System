@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Command } from "cmdk";
+import * as Dialog from "@radix-ui/react-dialog";
 import { Search, Loader2 } from "lucide-react";
 import { useSemanticSearch } from "@/hooks/useSemanticSearch";
 import { useRouter } from "next/navigation";
@@ -51,12 +52,10 @@ export function CommandPalette() {
         className="fixed inset-0 z-50"
         shouldFilter={false} // Disable client-side filtering (server-side via embeddings)
       >
-        {/* Backdrop */}
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" />
-
-        {/* Dialog Container */}
-        <div className="fixed inset-0 flex items-start justify-center pt-[20vh]">
-          <div className="bg-slate-900 border border-slate-700 rounded-xl shadow-2xl w-full max-w-lg mx-4 overflow-hidden">
+        <Dialog.Title className="sr-only">Semantic Movie Search</Dialog.Title>
+        {/* Backdrop + Dialog Container */}
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-start justify-center pt-[20vh]" onClick={() => setOpen(false)}>
+          <div className="bg-slate-900 border border-slate-700 rounded-xl shadow-2xl w-full max-w-lg mx-4 overflow-hidden" onClick={(e) => e.stopPropagation()}>
             {/* Input */}
             <div className="flex items-center gap-3 border-b border-slate-700 p-4">
               <Search className="w-5 h-5 text-slate-500" />

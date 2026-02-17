@@ -188,9 +188,6 @@ async def explain_recommendation(
     Uses RAG pipeline: retrieves user context and similar movies from ChromaDB,
     generates natural language explanation via Claude, caches for 7 days.
 
-    NOTE: Explanation service not yet implemented (Plan 05-02).
-    This endpoint will return a placeholder until then.
-
     Args:
         movie_id: TMDB movie ID to explain
         authorization: Bearer token
@@ -201,8 +198,13 @@ async def explain_recommendation(
     # Authenticate user
     user_id = await get_current_user_id(authorization)
 
-    # Placeholder response until explanation service is implemented
-    raise HTTPException(
-        status_code=501,
-        detail="AI explanations not yet implemented. Coming in Plan 05-02."
-    )
+    try:
+        result = await explanation_service.get_explanation(user_id, movie_id)
+        return ExplanationResponse(
+            movie_id=result["movie_id"],
+            explanation=result["explanation"],
+            factors=result["factors"],
+            cached=result["cached"]
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to generate explanation: {str(e)}")
