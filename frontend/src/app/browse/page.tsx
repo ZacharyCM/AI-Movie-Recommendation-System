@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
 import { fetchMovies, searchMovies } from "@/lib/api";
 import MovieGrid from "@/components/movies/MovieGrid";
 import SearchBar from "@/components/movies/SearchBar";
@@ -13,9 +14,16 @@ import { useMoodRecommendations } from "@/hooks/useMoodRecommendations";
 import type { Movie } from "@/types/movie";
 
 export default function BrowsePage() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const searchParams = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
   const [page, setPage] = useState(1);
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
+
+  // Sync search query when URL ?q= param changes (driven by Navbar search)
+  useEffect(() => {
+    setSearchQuery(searchParams.get("q") ?? "");
+    setPage(1);
+  }, [searchParams]);
 
   // Full catalog (search + pagination)
   const { data, isLoading } = useQuery({
