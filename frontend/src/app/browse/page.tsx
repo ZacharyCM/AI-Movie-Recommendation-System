@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { fetchMovies, searchMovies } from "@/lib/api";
 import MovieGrid from "@/components/movies/MovieGrid";
-import SearchBar from "@/components/movies/SearchBar";
 import Carousel from "@/components/movies/Carousel";
 import MoodSelector from "@/components/discovery/MoodSelector";
 import { useRecommendations } from "@/hooks/useRecommendations";
@@ -13,7 +12,7 @@ import { useMoviesByGenre } from "@/hooks/useMoviesByGenre";
 import { useMoodRecommendations } from "@/hooks/useMoodRecommendations";
 import type { Movie } from "@/types/movie";
 
-export default function BrowsePage() {
+function BrowsePageContent() {
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
   const [page, setPage] = useState(1);
@@ -64,11 +63,6 @@ export default function BrowsePage() {
     }));
   }, [recData]);
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-    setPage(1);
-  };
-
   const recTitle =
     recData?.strategy === "popularity_fallback"
       ? "Popular Right Now"
@@ -81,87 +75,98 @@ export default function BrowsePage() {
 
   return (
     <div className="space-y-8">
-      {/* Mood Selector */}
-      <MoodSelector selectedMood={selectedMood} onMoodSelect={setSelectedMood} />
-
-      {/* Carousel Section */}
-      <section className="space-y-6">
-        {/* Mood results carousel -- only show when mood is selected */}
-        {selectedMood && (
-          <Carousel
-            title={`Movies for your "${selectedMood}" mood`}
-            movies={moodData?.results ?? []}
-            isLoading={moodLoading}
-          />
-        )}
-
-        <Carousel
-          title="Trending Now"
-          movies={trendingData?.results ?? []}
-          isLoading={trendingLoading}
-        />
-
-        <Carousel
-          title={recTitle}
-          subtitle={recSubtitle}
-          movies={recommendationMovies}
-          isLoading={recLoading}
-        />
-
-        <Carousel
-          title="Action & Adventure"
-          movies={actionData ?? []}
-          isLoading={actionLoading}
-        />
-        <Carousel
-          title="Sci-Fi"
-          movies={scifiData ?? []}
-          isLoading={scifiLoading}
-        />
-        <Carousel
-          title="Thrillers"
-          movies={thrillerData ?? []}
-          isLoading={thrillerLoading}
-        />
-      </section>
-
-      {/* Full Catalog Section */}
-      <div className="border-t border-slate-700 pt-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-          <h1 className="text-2xl font-bold text-white">Full Catalog</h1>
-          <SearchBar onSearch={handleSearch} />
-        </div>
-
-        {searchQuery && (
-          <p className="text-slate-400 mb-4">
-            Results for &ldquo;{searchQuery}&rdquo;
-          </p>
-        )}
-
-        <MovieGrid movies={data?.results ?? []} isLoading={isLoading} />
-
-        {data && data.total_pages > 1 && (
-          <div className="flex items-center justify-center gap-4 pt-4">
-            <button
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
-              disabled={page <= 1}
-              className="bg-red-600 hover:bg-red-700 disabled:bg-slate-700 disabled:text-slate-500 text-white px-4 py-2 rounded transition"
-            >
-              Previous
-            </button>
-            <span className="text-slate-400">
-              Page {page} of {data.total_pages}
-            </span>
-            <button
-              onClick={() => setPage((p) => Math.min(data.total_pages, p + 1))}
-              disabled={page >= data.total_pages}
-              className="bg-red-600 hover:bg-red-700 disabled:bg-slate-700 disabled:text-slate-500 text-white px-4 py-2 rounded transition"
-            >
-              Next
-            </button>
+      {/* Search results — visible only when query active */}
+      {searchQuery && (
+        <section>
+          <div className="mb-4">
+            <h2 className="text-2xl font-bold text-white">
+              Search results for &ldquo;{searchQuery}&rdquo;
+            </h2>
+            <p className="text-slate-400 text-sm mt-1">
+              {data?.results?.length ?? 0} movies found
+            </p>
           </div>
-        )}
-      </div>
+          <MovieGrid movies={data?.results ?? []} isLoading={isLoading} />
+          {data && data.total_pages > 1 && (
+            <div className="flex items-center justify-center gap-4 pt-4">
+              <button
+                onClick={() => setPage((p) => Math.max(1, p - 1))}
+                disabled={page <= 1}
+                className="bg-red-600 hover:bg-red-700 disabled:bg-slate-700 disabled:text-slate-500 text-white px-4 py-2 rounded transition"
+              >
+                Previous
+              </button>
+              <span className="text-slate-400">
+                Page {page} of {data.total_pages}
+              </span>
+              <button
+                onClick={() => setPage((p) => Math.min(data.total_pages, p + 1))}
+                disabled={page >= data.total_pages}
+                className="bg-red-600 hover:bg-red-700 disabled:bg-slate-700 disabled:text-slate-500 text-white px-4 py-2 rounded transition"
+              >
+                Next
+              </button>
+            </div>
+          )}
+        </section>
+      )}
+
+      {/* Normal browse content — hidden during search */}
+      {!searchQuery && (
+        <>
+          {/* Mood Selector */}
+          <MoodSelector selectedMood={selectedMood} onMoodSelect={setSelectedMood} />
+
+          {/* Carousel Section */}
+          <section className="space-y-6">
+            {/* Mood results carousel -- only show when mood is selected */}
+            {selectedMood && (
+              <Carousel
+                title={`Movies for your "${selectedMood}" mood`}
+                movies={moodData?.results ?? []}
+                isLoading={moodLoading}
+              />
+            )}
+
+            <Carousel
+              title="Trending Now"
+              movies={trendingData?.results ?? []}
+              isLoading={trendingLoading}
+            />
+
+            <Carousel
+              title={recTitle}
+              subtitle={recSubtitle}
+              movies={recommendationMovies}
+              isLoading={recLoading}
+            />
+
+            <Carousel
+              title="Action & Adventure"
+              movies={actionData ?? []}
+              isLoading={actionLoading}
+            />
+            <Carousel
+              title="Sci-Fi"
+              movies={scifiData ?? []}
+              isLoading={scifiLoading}
+            />
+            <Carousel
+              title="Thrillers"
+              movies={thrillerData ?? []}
+              isLoading={thrillerLoading}
+            />
+          </section>
+        </>
+      )}
     </div>
+  );
+}
+
+export default function BrowsePage() {
+  return (
+    <Suspense>
+      <BrowsePageContent />
+    </Suspense>
   );
 }
