@@ -24,6 +24,18 @@ export async function searchMovies(
   return res.json();
 }
 
+export async function fetchMoviesByGenre(
+  genreId: number,
+  page: number = 1
+): Promise<PaginatedResponse<Movie>> {
+  const res = await fetch(
+    `${API_URL}/api/movies/genre/${genreId}?page=${page}`,
+    { cache: "no-store" }
+  );
+  if (!res.ok) throw new Error(res.statusText);
+  return res.json();
+}
+
 export async function fetchMovieDetail(id: number): Promise<MovieDetail> {
   const res = await fetch(`${API_URL}/api/movies/${id}`, {
     cache: "no-store",

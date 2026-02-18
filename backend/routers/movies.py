@@ -57,6 +57,19 @@ async def search_movies(
         raise HTTPException(status_code=502, detail="Failed to search movies from TMDB")
 
 
+@router.get("/genre/{genre_id}", response_model=PaginatedMovieResponse)
+async def get_movies_by_genre(
+    genre_id: int,
+    page: int = Query(1, ge=1, le=500),
+):
+    """Get movies by genre from TMDB discover endpoint."""
+    try:
+        data = await tmdb_service.discover_by_genre(genre_id=genre_id, page=page)
+        return data
+    except httpx.HTTPStatusError:
+        raise HTTPException(status_code=502, detail="Failed to fetch movies by genre from TMDB")
+
+
 @router.get("/{movie_id}", response_model=MovieDetailResponse)
 async def get_movie_detail(movie_id: int):
     """Get detailed information about a specific movie."""

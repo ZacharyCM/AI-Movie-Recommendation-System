@@ -75,6 +75,33 @@ class TMDBService:
             response.raise_for_status()
             return response.json()
 
+    async def discover_by_genre(self, genre_id: int, page: int = 1) -> Dict[str, Any]:
+        """
+        Fetch movies by genre using TMDB discover endpoint.
+
+        Args:
+            genre_id: TMDB genre ID (e.g., 28 for Action, 878 for Sci-Fi)
+            page: Page number for pagination
+
+        Returns:
+            TMDB API response with movies in the given genre
+
+        Raises:
+            httpx.HTTPStatusError: If API request fails
+        """
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                f"{TMDB_BASE_URL}/discover/movie",
+                params={
+                    "api_key": settings.tmdb_api_key,
+                    "with_genres": genre_id,
+                    "sort_by": "popularity.desc",
+                    "page": page,
+                }
+            )
+            response.raise_for_status()
+            return response.json()
+
     async def get_movie_details(self, movie_id: int) -> Dict[str, Any]:
         """
         Fetch detailed information about a specific movie.
