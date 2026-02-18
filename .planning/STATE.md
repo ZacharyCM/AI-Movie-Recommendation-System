@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-02-08)
 
 **Core value:** Smart, explainable recommendations -- users rate movies, get personalized suggestions that feel intelligent, and can search in natural language with Claude-powered explanations connecting recommendations to their personal taste.
-**Current focus:** Phase 5 complete. Ready to plan Phase 6.
+**Current focus:** Phase 6 in progress. Plan 01 (Homepage Hero Section) complete.
 
 ## Current Position
 
-Phase: 5 of 6 (Embeddings, RAG & AI Explanations)
-Plan: 3 of 3 in current phase
-Status: Phase complete, verified
-Last activity: 2026-02-16 -- Phase 5 verified and marked complete
+Phase: 6 of 6 (Netflix-Style UI & Discovery)
+Plan: 1 of 3 in current phase
+Status: Plan 01 complete
+Last activity: 2026-02-17 -- Phase 6 Plan 01 executed (Homepage Hero Section)
 
-Progress: [██████████] 100% (Phase 5)
+Progress: [>>>>------] 33% (Phase 6, 1/3 plans)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 15
-- Average duration: 3m 34s
-- Total execution time: 0.9 hours
+- Total plans completed: 16
+- Average duration: 3m 28s
+- Total execution time: ~0.93 hours
 
 **By Phase:**
 
@@ -32,15 +32,15 @@ Progress: [██████████] 100% (Phase 5)
 | 03-content-based-recommendations | 2 | 7m 15s | 3m 37s |
 | 04-collaborative-filtering-hybrid-fusion | 2 | 7m 24s | 3m 42s |
 | 05-embeddings-rag-ai-explanations | 3 | 16m 24s | 5m 28s |
+| 06-netflix-style-ui-discovery | 1 | 2m | 2m |
 
 **Recent Executions:**
+- 06-01 (Homepage Hero Section): 2m, 2 tasks, 5 files
 - 05-02 (AI-Powered Recommendation Explanations): 5m 46s, 2 tasks, 12 files
 - 05-03 (Semantic Search with Cmd+K Command Palette): 5m 10s, 2 tasks, 8 files
 - 05-01 (Movie Embeddings & ChromaDB Foundation): 5m 28s, 2 tasks, 3 files
 - 04-02 (Hybrid Fusion Layer Integration): 3m 54s, 2 tasks, 6 files
 - 04-01 (SVD Collaborative Filtering Foundation): 3m 30s, 2 tasks, 3 files
-- 03-02 (Recommendation UI Integration): 3m 8s, 2 tasks, 6 files
-- 03-01 (TF-IDF Recommendation Engine): 4m 7s, 2 tasks, 8 files
 
 ## Accumulated Context
 
@@ -100,6 +100,10 @@ Recent decisions affecting current work:
 - [05-03]: Disabled cmdk client-side filtering (shouldFilter=false) for server-side semantic filtering
 - [05-03]: 3-character minimum query length before triggering semantic search
 - [05-03]: Global CommandPalette in layout.tsx for app-wide keyboard shortcut access
+- [06-01]: Curated featured movie list (Inception, Interstellar, Dark Knight, Dune, Spider-Verse, Oppenheimer) with random.choice each request
+- [06-01]: /featured route registered before /{movie_id} to prevent FastAPI routing ambiguity (same pattern as /search)
+- [06-01]: Trailer embed as state-toggled section below hero (not modal) for simplicity and mobile UX
+- [06-01]: Watch Trailer button conditionally hidden when no YouTube Trailer type video found
 
 ### Pending Todos
 
@@ -108,11 +112,10 @@ None yet.
 ### Blockers/Concerns
 
 - Anthropic API key required for AI explanations to function (user setup needed)
-- Phase 5 complete - RAG implementation successful with hallucination prevention via context-only references
 - Phase 4 fusion layer weighting may need experimentation. No exact formula established yet.
 
 ## Session Continuity
 
-Last session: 2026-02-16
-Stopped at: Phase 5 complete and verified. Ready to plan Phase 6 (Netflix-Style UI & Discovery).
+Last session: 2026-02-17
+Stopped at: Phase 6 Plan 01 complete. Homepage hero section implemented. Ready for Plan 02.
 Resume file: None
