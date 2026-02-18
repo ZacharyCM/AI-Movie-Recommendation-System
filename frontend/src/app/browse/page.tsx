@@ -6,13 +6,16 @@ import { fetchMovies, searchMovies } from "@/lib/api";
 import MovieGrid from "@/components/movies/MovieGrid";
 import SearchBar from "@/components/movies/SearchBar";
 import Carousel from "@/components/movies/Carousel";
+import MoodSelector from "@/components/discovery/MoodSelector";
 import { useRecommendations } from "@/hooks/useRecommendations";
 import { useMoviesByGenre } from "@/hooks/useMoviesByGenre";
+import { useMoodRecommendations } from "@/hooks/useMoodRecommendations";
 import type { Movie } from "@/types/movie";
 
 export default function BrowsePage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
+  const [selectedMood, setSelectedMood] = useState<string | null>(null);
 
   // Full catalog (search + pagination)
   const { data, isLoading } = useQuery({
@@ -32,6 +35,7 @@ export default function BrowsePage() {
   });
 
   const { data: recData, isLoading: recLoading } = useRecommendations(15);
+  const { data: moodData, isLoading: moodLoading } = useMoodRecommendations(selectedMood);
   const { data: actionData, isLoading: actionLoading } = useMoviesByGenre(28);
   const { data: scifiData, isLoading: scifiLoading } = useMoviesByGenre(878);
   const { data: thrillerData, isLoading: thrillerLoading } = useMoviesByGenre(53);
@@ -69,8 +73,20 @@ export default function BrowsePage() {
 
   return (
     <div className="space-y-8">
+      {/* Mood Selector */}
+      <MoodSelector selectedMood={selectedMood} onMoodSelect={setSelectedMood} />
+
       {/* Carousel Section */}
       <section className="space-y-6">
+        {/* Mood results carousel -- only show when mood is selected */}
+        {selectedMood && (
+          <Carousel
+            title={`Movies for your "${selectedMood}" mood`}
+            movies={moodData?.results ?? []}
+            isLoading={moodLoading}
+          />
+        )}
+
         <Carousel
           title="Trending Now"
           movies={trendingData?.results ?? []}

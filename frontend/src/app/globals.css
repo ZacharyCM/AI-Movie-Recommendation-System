@@ -12,10 +12,19 @@
   --font-mono: var(--font-geist-mono);
 }
 
+html {
+  color-scheme: dark;
+}
+
 body {
   background: #0f172a;
   color: #e2e8f0;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+::selection {
+  background-color: rgba(239, 68, 68, 0.3);
+  color: white;
 }
 
 /* Hide scrollbar while maintaining scroll functionality */
