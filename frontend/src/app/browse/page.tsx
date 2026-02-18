@@ -16,6 +16,7 @@ function BrowsePageContent() {
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
   const [page, setPage] = useState(1);
+  const [catalogPage, setCatalogPage] = useState(1);
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
 
   // Sync search query when URL ?q= param changes (driven by Navbar search)
@@ -24,13 +25,21 @@ function BrowsePageContent() {
     setPage(1);
   }, [searchParams]);
 
-  // Full catalog (search + pagination)
+  // Search results query
   const { data, isLoading } = useQuery({
     queryKey: ["movies", searchQuery, page],
     queryFn: () =>
       searchQuery
         ? searchMovies(searchQuery, page)
         : fetchMovies(page),
+    placeholderData: (previousData) => previousData,
+    enabled: !!searchQuery,
+  });
+
+  // Full catalog with independent pagination
+  const { data: catalogData, isLoading: catalogLoading } = useQuery({
+    queryKey: ["catalog", catalogPage],
+    queryFn: () => fetchMovies(catalogPage),
     placeholderData: (previousData) => previousData,
   });
 
@@ -156,6 +165,36 @@ function BrowsePageContent() {
               movies={thrillerData ?? []}
               isLoading={thrillerLoading}
             />
+          </section>
+
+          {/* Full Catalog */}
+          <section>
+            <div className="mb-4">
+              <h2 className="text-2xl font-bold text-white">Full Catalog</h2>
+              <p className="text-slate-400 text-sm mt-1">Browse all movies</p>
+            </div>
+            <MovieGrid movies={catalogData?.results ?? []} isLoading={catalogLoading} />
+            {catalogData && catalogData.total_pages > 1 && (
+              <div className="flex items-center justify-center gap-4 pt-4">
+                <button
+                  onClick={() => setCatalogPage((p) => Math.max(1, p - 1))}
+                  disabled={catalogPage <= 1}
+                  className="bg-red-600 hover:bg-red-700 disabled:bg-slate-700 disabled:text-slate-500 text-white px-4 py-2 rounded transition"
+                >
+                  Previous
+                </button>
+                <span className="text-slate-400">
+                  Page {catalogPage} of {catalogData.total_pages}
+                </span>
+                <button
+                  onClick={() => setCatalogPage((p) => Math.min(catalogData.total_pages, p + 1))}
+                  disabled={catalogPage >= catalogData.total_pages}
+                  className="bg-red-600 hover:bg-red-700 disabled:bg-slate-700 disabled:text-slate-500 text-white px-4 py-2 rounded transition"
+                >
+                  Next
+                </button>
+              </div>
+            )}
           </section>
         </>
       )}
