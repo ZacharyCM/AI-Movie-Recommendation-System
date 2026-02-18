@@ -1,3 +1,5 @@
+import random
+
 import httpx
 from fastapi import APIRouter, HTTPException, Query
 
@@ -10,6 +12,26 @@ from services.tmdb import TMDBService
 router = APIRouter(prefix="/api/movies", tags=["movies"])
 
 tmdb_service = TMDBService()
+
+FEATURED_MOVIE_IDS = [
+    27205,   # Inception
+    157336,  # Interstellar
+    155,     # The Dark Knight
+    438631,  # Dune
+    569094,  # Spider-Man: Across the Spider-Verse
+    872585,  # Oppenheimer
+]
+
+
+@router.get("/featured", response_model=MovieDetailResponse)
+async def get_featured_movie():
+    """Get a curated featured movie for the homepage hero section."""
+    movie_id = random.choice(FEATURED_MOVIE_IDS)
+    try:
+        data = await tmdb_service.get_movie_details(movie_id=movie_id)
+        return data
+    except httpx.HTTPStatusError:
+        raise HTTPException(status_code=502, detail="Failed to fetch featured movie from TMDB")
 
 
 @router.get("", response_model=PaginatedMovieResponse)

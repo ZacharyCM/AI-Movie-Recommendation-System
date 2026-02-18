@@ -32,6 +32,12 @@ export async function fetchMovieDetail(id: number): Promise<MovieDetail> {
   return res.json();
 }
 
+export async function fetchFeaturedMovie(): Promise<MovieDetail> {
+  const res = await fetch(`${API_URL}/api/movies/featured`, { cache: "no-store" });
+  if (!res.ok) throw new Error(res.statusText);
+  return res.json();
+}
+
 export interface Recommendation {
   movie_id: number;
   title: string;
