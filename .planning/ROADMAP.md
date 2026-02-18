@@ -117,12 +117,13 @@ Plans:
   3. The entire application uses a dark mode palette (deep slate/black #0f172a base) by default
   4. Layout is fully responsive -- carousels, hero section, and detail pages work well on mobile, tablet, and desktop
   5. User can select a mood ("I'm feeling adventurous", "Something cozy") and receive recommendations filtered to match that mood
-**Plans**: TBD
+**Plans**: 3 plans
 **Research flag**: Standard patterns, skip research-phase
 
 Plans:
-- [ ] 06-01: TBD
-- [ ] 06-02: TBD
+- [ ] 06-01-PLAN.md — Cinematic homepage hero section with featured movie backdrop, trailer embed, and CTAs
+- [ ] 06-02-PLAN.md — Horizontal scroll carousels with framer-motion stagger animations on browse page
+- [ ] 06-03-PLAN.md — Mood-based discovery selector + dark mode global enforcement
 
 ## Coverage Matrix
 
@@ -190,7 +191,7 @@ All phases are sequential. Each phase builds on the outputs of the previous phas
 | 3. Content-Based Recommendations | 2/2 | ✓ Complete | 2026-02-16 |
 | 4. Collaborative Filtering & Hybrid Fusion | 2/2 | ✓ Complete | 2026-02-16 |
 | 5. Embeddings, RAG & AI Explanations | 3/3 | ✓ Complete | 2026-02-16 |
-| 6. Netflix-Style UI & Discovery | 0/TBD | Not started | - |
+| 6. Netflix-Style UI & Discovery | 0/3 | In Progress | - |
 
 ---
 *Created: 2026-02-11*
