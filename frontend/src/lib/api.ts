@@ -132,3 +132,27 @@ export async function fetchExplanation(
   if (!res.ok) throw new Error(res.statusText);
   return res.json();
 }
+
+export interface MoodOption {
+  id: string;
+  label: string;
+  emoji: string;
+}
+
+export async function fetchMoods(): Promise<MoodOption[]> {
+  const res = await fetch(`${API_URL}/api/movies/moods`, { cache: "no-store" });
+  if (!res.ok) throw new Error(res.statusText);
+  return res.json();
+}
+
+export async function fetchMoviesByMood(
+  mood: string,
+  page: number = 1
+): Promise<PaginatedResponse<Movie>> {
+  const res = await fetch(
+    `${API_URL}/api/movies/mood/${mood}?page=${page}`,
+    { cache: "no-store" }
+  );
+  if (!res.ok) throw new Error(res.statusText);
+  return res.json();
+}

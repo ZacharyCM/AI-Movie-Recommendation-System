@@ -89,13 +89,30 @@ class TMDBService:
         Raises:
             httpx.HTTPStatusError: If API request fails
         """
+        return await self.discover_by_genres(str(genre_id), page)
+
+    async def discover_by_genres(self, genre_ids: str, page: int = 1) -> Dict[str, Any]:
+        """
+        Fetch movies by multiple genres using TMDB discover endpoint.
+
+        Args:
+            genre_ids: Pipe-separated TMDB genre IDs (e.g., "28|12" for Action OR Adventure)
+            page: Page number for pagination
+
+        Returns:
+            TMDB API response with movies in the given genres
+
+        Raises:
+            httpx.HTTPStatusError: If API request fails
+        """
         async with httpx.AsyncClient() as client:
             response = await client.get(
                 f"{TMDB_BASE_URL}/discover/movie",
                 params={
                     "api_key": settings.tmdb_api_key,
-                    "with_genres": genre_id,
+                    "with_genres": genre_ids,
                     "sort_by": "popularity.desc",
+                    "vote_count.gte": 100,
                     "page": page,
                 }
             )

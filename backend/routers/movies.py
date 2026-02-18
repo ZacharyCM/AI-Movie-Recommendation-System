@@ -1,4 +1,5 @@
 import random
+from typing import Any, Dict, List
 
 import httpx
 from fastapi import APIRouter, HTTPException, Query
@@ -21,6 +22,29 @@ FEATURED_MOVIE_IDS = [
     569094,  # Spider-Man: Across the Spider-Verse
     872585,  # Oppenheimer
 ]
+
+# Mood to TMDB genre ID mapping (pipe-separated for OR logic)
+MOOD_GENRE_MAP: Dict[str, str] = {
+    "adventurous": "28|12",         # Action, Adventure
+    "cozy": "18|10749|10751",       # Drama, Romance, Family
+    "thrilling": "53|27|9648",      # Thriller, Horror, Mystery
+    "mindblowing": "878|14",         # Science Fiction, Fantasy
+    "funny": "35|10751",             # Comedy, Family
+    "romantic": "10749|18",          # Romance, Drama
+    "nostalgic": "16|10751|12",      # Animation, Family, Adventure
+    "intense": "28|80|53",           # Action, Crime, Thriller
+}
+
+MOOD_LABELS: Dict[str, Dict[str, str]] = {
+    "adventurous": {"label": "Adventurous", "emoji": "🗺️"},
+    "cozy": {"label": "Something Cozy", "emoji": "☕"},
+    "thrilling": {"label": "Edge of My Seat", "emoji": "😱"},
+    "mindblowing": {"label": "Mind-Blowing", "emoji": "🤯"},
+    "funny": {"label": "Make Me Laugh", "emoji": "😂"},
+    "romantic": {"label": "Feeling Romantic", "emoji": "💕"},
+    "nostalgic": {"label": "Feeling Nostalgic", "emoji": "✨"},
+    "intense": {"label": "Something Intense", "emoji": "🔥"},
+}
 
 
 @router.get("/featured", response_model=MovieDetailResponse)
@@ -68,6 +92,34 @@ async def get_movies_by_genre(
         return data
     except httpx.HTTPStatusError:
         raise HTTPException(status_code=502, detail="Failed to fetch movies by genre from TMDB")
+
+
+@router.get("/moods", response_model=List[Dict[str, Any]])
+async def get_available_moods():
+    """Get available mood options with labels and emoji."""
+    return [
+        {"id": mood, "label": info["label"], "emoji": info["emoji"]}
+        for mood, info in MOOD_LABELS.items()
+    ]
+
+
+@router.get("/mood/{mood}", response_model=PaginatedMovieResponse)
+async def get_movies_by_mood(
+    mood: str,
+    page: int = Query(1, ge=1, le=500),
+):
+    """Get movies filtered by user mood via genre combinations."""
+    if mood not in MOOD_GENRE_MAP:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unknown mood '{mood}'. Available moods: {list(MOOD_GENRE_MAP.keys())}"
+        )
+    genre_ids = MOOD_GENRE_MAP[mood]
+    try:
+        data = await tmdb_service.discover_by_genres(genre_ids=genre_ids, page=page)
+        return data
+    except httpx.HTTPStatusError:
+        raise HTTPException(status_code=502, detail="Failed to fetch mood movies from TMDB")
 
 
 @router.get("/{movie_id}", response_model=MovieDetailResponse)
