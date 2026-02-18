@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import HeroSection from "@/components/home/HeroSection";
@@ -7,7 +8,9 @@ import HeroSection from "@/components/home/HeroSection";
 export default function Home() {
   return (
     <div className="min-h-screen bg-slate-900">
-      <Navbar />
+      <Suspense>
+        <Navbar />
+      </Suspense>
       {/* Offset content below fixed navbar */}
       <div className="pt-[56px]">
         <HeroSection />

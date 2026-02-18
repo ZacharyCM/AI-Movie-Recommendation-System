@@ -9,7 +9,7 @@ import { ProfileHeader } from '@/components/profile/ProfileHeader';
 import { RatingHistory } from '@/components/profile/RatingHistory';
 import { WatchlistGrid } from '@/components/profile/WatchlistGrid';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 
 export default function ProfilePage() {
   const router = useRouter();
@@ -40,7 +40,9 @@ export default function ProfilePage() {
   if (isLoading) {
     return (
       <>
-        <Navbar />
+        <Suspense>
+          <Navbar />
+        </Suspense>
         <main className="min-h-screen bg-slate-900 pt-16">
           <div className="max-w-4xl mx-auto px-4 py-8">
             {/* Skeleton loader for ProfileHeader */}
@@ -79,7 +81,9 @@ export default function ProfilePage() {
 
   return (
     <>
-      <Navbar />
+      <Suspense>
+        <Navbar />
+      </Suspense>
       <main className="min-h-screen bg-slate-900 pt-16">
         <div className="max-w-4xl mx-auto px-4 py-8">
           {/* Profile Header */}

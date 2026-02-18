@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect } from "react";
+import { use, useEffect, Suspense } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMovieDetail } from "@/lib/api";
 import MovieDetail from "@/components/movies/MovieDetail";
@@ -32,7 +32,9 @@ export default function MoviePage({
 
   return (
     <>
-      <Navbar />
+      <Suspense>
+        <Navbar />
+      </Suspense>
       <main className="pt-16 px-4 md:px-8 py-6 max-w-6xl mx-auto">
         {isLoading && (
           <div className="space-y-4">
