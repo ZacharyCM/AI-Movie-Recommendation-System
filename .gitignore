@@ -1,0 +1,11 @@
+# ML data and generated files (large, reproducible)
+backend/ml/data/
+backend/ml/embeddings/chroma_db/
+backend/ml/models/
+
+# Claude Code IDE config (not project code)
+.claude/
+
+# Planning backup files
+.planning/STATE.md.backup
+.planning/STATE.md.bak
