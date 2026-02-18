@@ -1,3 +1,16 @@
+# Python virtual environments
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables (never commit secrets)
+.env
+.env.local
+.env*.local
+backend/.env
+
 # ML data and generated files (large, reproducible)
 backend/ml/data/
 backend/ml/embeddings/chroma_db/
