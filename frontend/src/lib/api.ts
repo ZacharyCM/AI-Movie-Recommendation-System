@@ -72,7 +72,7 @@ export async function fetchRecommendations(
   topN: number = 10
 ): Promise<RecommendationList> {
   const res = await fetch(
-    `${API_URL}/api/recommendations?top_n=${topN}`,
+    `${API_URL}/api/recommendations/?top_n=${topN}`,
     {
       cache: "no-store",
       headers: {

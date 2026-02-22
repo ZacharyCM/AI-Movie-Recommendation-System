@@ -10,6 +10,7 @@ import MoodSelector from "@/components/discovery/MoodSelector";
 import { useRecommendations } from "@/hooks/useRecommendations";
 import { useMoviesByGenre } from "@/hooks/useMoviesByGenre";
 import { useMoodRecommendations } from "@/hooks/useMoodRecommendations";
+import { useUserRatings } from "@/hooks/useRatings";
 import type { Movie } from "@/types/movie";
 
 function BrowsePageContent() {
@@ -49,6 +50,11 @@ function BrowsePageContent() {
     queryFn: () => fetchMovies(1),
     staleTime: 1000 * 60 * 5,
   });
+
+  // Prefetch all user ratings once so individual CarouselCard/MovieCard instances
+  // can seed their per-movie rating from this cache, avoiding per-card Supabase
+  // auth lock contention when many cards render simultaneously.
+  useUserRatings();
 
   const { data: recData, isLoading: recLoading } = useRecommendations(15);
   const { data: moodData, isLoading: moodLoading } = useMoodRecommendations(selectedMood);

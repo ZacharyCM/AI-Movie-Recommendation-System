@@ -3,17 +3,31 @@ import { getUserRatings, getMovieRating, upsertRating, deleteRating } from '@/li
 import { trackAction } from '@/lib/supabase/history';
 import { Rating } from '@/types/database';
 
-export function useMovieRating(movieId: number) {
-  return useQuery({
-    queryKey: ['ratings', movieId],
-    queryFn: () => getMovieRating(movieId)
-  });
-}
-
 export function useUserRatings() {
   return useQuery({
     queryKey: ['user-ratings'],
-    queryFn: getUserRatings
+    queryFn: getUserRatings,
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+}
+
+export function useMovieRating(movieId: number) {
+  const queryClient = useQueryClient();
+
+  return useQuery({
+    queryKey: ['ratings', movieId],
+    queryFn: () => getMovieRating(movieId),
+    staleTime: 1000 * 60 * 5, // 5 minutes - avoids redundant refetches
+    // Seed from the bulk user-ratings list if already loaded, to avoid
+    // per-card Supabase auth lock contention when many cards render at once.
+    initialData: () => {
+      const allRatings = queryClient.getQueryData<Rating[]>(['user-ratings']);
+      if (!allRatings) return undefined;
+      const match = allRatings.find((r) => r.movie_id === movieId);
+      return match ? match.rating : null;
+    },
+    initialDataUpdatedAt: () =>
+      queryClient.getQueryState(['user-ratings'])?.dataUpdatedAt,
   });
 }
 
