@@ -31,12 +31,16 @@ async def lifespan(app: FastAPI):
     # Shutdown: cleanup handled by garbage collection
 
 
-app = FastAPI(title="Netflix Recommendations API", lifespan=lifespan)
+app = FastAPI(title="Netflix Recommendations API", lifespan=lifespan, redirect_slashes=False)
 
 # Configure CORS
+allowed_origins = [settings.frontend_url]
+if settings.frontend_url and not settings.frontend_url.startswith("http://localhost"):
+    # Also allow www subdomain
+    allowed_origins.append(settings.frontend_url.replace("https://", "https://www."))
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.frontend_url],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
