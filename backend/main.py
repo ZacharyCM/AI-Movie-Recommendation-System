@@ -2,19 +2,22 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+from pathlib import Path
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from config import settings
 from dependencies import recommender_service
 
+_MODEL_DIR = str(Path(__file__).parent / "ml" / "models")
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """FastAPI lifespan context manager for startup/shutdown."""
     # Startup: Load recommender models
-    recommender_service.load_model("ml/models")
-    recommender_service.load_collaborative_model("ml/models")
+    recommender_service.load_model(_MODEL_DIR)
+    recommender_service.load_collaborative_model(_MODEL_DIR)
 
     # Log model status
     import logging
