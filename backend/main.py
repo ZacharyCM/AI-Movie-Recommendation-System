@@ -58,5 +58,15 @@ app.include_router(search_router)
 
 @app.get("/health")
 async def health_check():
-    """Health check endpoint."""
-    return {"status": "ok"}
+    """
+    Health check endpoint.
+
+    Reports model load state so Railway and smoke tests can confirm that
+    ML-01 (boot succeeded) and ML-03 (model files present) are satisfied
+    without needing an authenticated /recommendations call.
+    """
+    return {
+        "status": "ok",
+        "content_model_loaded": recommender_service.is_loaded(),
+        "collaborative_model_loaded": recommender_service.is_collaborative_loaded(),
+    }

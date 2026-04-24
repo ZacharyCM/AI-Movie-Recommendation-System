@@ -73,11 +73,39 @@ async def get_recommendations(
     # Authenticate user
     user_id = await get_current_user_id(authorization)
 
-    # Check if recommender model is loaded
+    # Graceful degradation (ML-02, ML-04): if the recommender model is not loaded,
+    # return TMDB popular movies instead of 503. User has no recs context at this
+    # point (we have not queried Supabase yet), so total_ratings = 0.
     if not recommender_service.is_loaded():
-        raise HTTPException(
-            status_code=503,
-            detail="Recommendation model not available. Please build the model first."
+        tmdb_service = TMDBService()
+        try:
+            popular_payload = await tmdb_service.get_popular(page=1)
+            popular_results = popular_payload.get("results", [])[:top_n]
+        except Exception as e:
+            # Even TMDB failed — return empty list rather than 500 so the frontend
+            # can render a "no recommendations" state.
+            print(f"TMDB popular fetch failed during fallback: {e}")
+            popular_results = []
+
+        recommendations_list = [
+            RecommendationResponse(
+                movie_id=m["id"],
+                title=m.get("title", ""),
+                poster_path=m.get("poster_path"),
+                overview=m.get("overview", ""),
+                vote_average=m.get("vote_average", 0.0),
+                release_date=m.get("release_date", ""),
+                score=0.0,
+                reason="popular",
+            )
+            for m in popular_results
+            if "id" in m
+        ]
+
+        return RecommendationListResponse(
+            recommendations=recommendations_list,
+            strategy="popularity_fallback",
+            total_ratings=0,
         )
 
     # Get user's ratings from Supabase

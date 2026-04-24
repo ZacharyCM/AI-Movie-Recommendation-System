@@ -25,19 +25,21 @@ class SemanticSearchService:
         """
         Initialize the semantic search service.
 
-        Args:
-            embedding_store: EmbeddingStore instance for vector retrieval
+        The SentenceTransformer model is loaded here. On Railway cold starts the
+        ~90MB HuggingFace download can time out — if that happens we log the
+        failure and set self.model = None so the process can still boot. The
+        search() method then returns an empty list instead of raising.
         """
         self.embedding_store = embedding_store
-
-        # Load the same model used to generate embeddings
-        # Loading once in constructor (not per-request)
+        self.model = None
         try:
             self.model = SentenceTransformer('all-MiniLM-L6-v2')
             logger.info("Loaded SentenceTransformer model: all-MiniLM-L6-v2")
         except Exception as e:
-            logger.error(f"Failed to load SentenceTransformer model: {e}")
-            raise
+            logger.error(
+                f"Failed to load SentenceTransformer model (semantic search will be disabled): {e}"
+            )
+            # DO NOT re-raise — boot must continue so /recommendations and /health still work.
 
     def search(self, query: str, top_n: int = 10) -> list[dict[str, Any]]:
         """
@@ -51,6 +53,10 @@ class SemanticSearchService:
             List of dicts with keys: movie_id, title, year, genres, distance
             Results are sorted by cosine similarity (closest first)
         """
+        if self.model is None:
+            logger.warning("Semantic search requested but model is not loaded; returning empty results.")
+            return []
+
         try:
             # Encode the query text into an embedding vector
             query_embedding = self.model.encode(query, convert_to_numpy=True).tolist()
